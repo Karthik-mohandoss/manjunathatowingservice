@@ -1,0 +1,99 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 360" width="100%" height="100%">
+  <defs>
+    <linearGradient id="bgMap" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0B132B"/>
+      <stop offset="100%" stop-color="#1E293B"/>
+    </linearGradient>
+    <linearGradient id="routeGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#38BDF8"/>
+      <stop offset="30%" stop-color="#FFB703"/>
+      <stop offset="100%" stop-color="#FB8500"/>
+    </linearGradient>
+  </defs>
+
+  <rect width="900" height="360" rx="16" fill="url(#bgMap)" stroke="#334155" stroke-width="2"/>
+
+  <!-- Subtle topographic grid lines -->
+  <g stroke="#334155" stroke-width="0.8" opacity="0.3">
+    <line x1="50" y1="0" x2="50" y2="360"/>
+    <line x1="200" y1="0" x2="200" y2="360"/>
+    <line x1="350" y1="0" x2="350" y2="360"/>
+    <line x1="500" y1="0" x2="500" y2="360"/>
+    <line x1="650" y1="0" x2="650" y2="360"/>
+    <line x1="800" y1="0" x2="800" y2="360"/>
+    <line x1="0" y1="90" x2="900" y2="90"/>
+    <line x1="0" y1="180" x2="900" y2="180"/>
+    <line x1="0" y1="270" x2="900" y2="270"/>
+  </g>
+
+  <!-- Title Badge -->
+  <text x="40" y="45" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="16" font-weight="800" fill="#FFFFFF" letter-spacing="0.5">SERVICE CORRIDOR: BENGALURU TO MANDYA</text>
+  <text x="40" y="68" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="12" font-weight="500" fill="#94A3B8">Dedicated Car Towing &amp; Car Recovery Coverage Along Bengaluru-Mysuru Highway (NH 275)</text>
+
+  <!-- Highway Line (NH 275 Corridor) -->
+  <path d="M 80 200 C 180 180, 260 210, 360 190 S 520 220, 640 185 S 760 200, 820 180" fill="none" stroke="#475569" stroke-width="12" stroke-linecap="round"/>
+  <path d="M 80 200 C 180 180, 260 210, 360 190 S 520 220, 640 185 S 760 200, 820 180" fill="none" stroke="url(#routeGrad)" stroke-width="6" stroke-linecap="round"/>
+
+  <!-- Location 1: Kengeri (Bengaluru Southwest Gate) -->
+  <g transform="translate(80, 200)">
+    <circle cx="0" cy="0" r="10" fill="#0B132B" stroke="#38BDF8" stroke-width="4"/>
+    <circle cx="0" cy="0" r="4" fill="#FFFFFF"/>
+    <!-- Label -->
+    <rect x="-55" y="-62" width="110" height="42" rx="6" fill="#0F172A" stroke="#38BDF8" stroke-width="1.5"/>
+    <text x="0" y="-44" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="12" font-weight="800" fill="#FFFFFF" text-anchor="middle">1. KENGERI</text>
+    <text x="0" y="-28" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="9" font-weight="600" fill="#38BDF8" text-anchor="middle">Metro &amp; NICE Road</text>
+  </g>
+
+  <!-- Location 2: Kumbalgodu (Our Primary Business Address) -->
+  <g transform="translate(220, 190)">
+    <circle cx="0" cy="0" r="14" fill="#FFB703" stroke="#0B132B" stroke-width="3"/>
+    <circle cx="0" cy="0" r="6" fill="#0B132B"/>
+    <!-- Business Base Badge -->
+    <rect x="-70" y="24" width="140" height="52" rx="6" fill="#FFB703" stroke="#FB8500" stroke-width="1.5"/>
+    <text x="0" y="42" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="12" font-weight="900" fill="#0B132B" text-anchor="middle">2. KUMBALGODU</text>
+    <text x="0" y="56" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="9.5" font-weight="700" fill="#0B132B" text-anchor="middle">★ Business Base Address</text>
+    <text x="0" y="68" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="8.5" font-weight="600" fill="#1E293B" text-anchor="middle">Thagachaguppe / KBM</text>
+  </g>
+
+  <!-- Location 3: Ramanagara -->
+  <g transform="translate(370, 192)">
+    <circle cx="0" cy="0" r="10" fill="#0B132B" stroke="#FFB703" stroke-width="4"/>
+    <circle cx="0" cy="0" r="4" fill="#FFFFFF"/>
+    <rect x="-60" y="-62" width="120" height="42" rx="6" fill="#0F172A" stroke="#FFB703" stroke-width="1.5"/>
+    <text x="0" y="-44" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="12" font-weight="800" fill="#FFFFFF" text-anchor="middle">3. RAMANAGARA</text>
+    <text x="0" y="-28" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="9" font-weight="600" fill="#FFB703" text-anchor="middle">Silk City / Bypass</text>
+  </g>
+
+  <!-- Location 4: Channapatna -->
+  <g transform="translate(515, 208)">
+    <circle cx="0" cy="0" r="10" fill="#0B132B" stroke="#FFB703" stroke-width="4"/>
+    <circle cx="0" cy="0" r="4" fill="#FFFFFF"/>
+    <rect x="-65" y="24" width="130" height="42" rx="6" fill="#0F172A" stroke="#FFB703" stroke-width="1.5"/>
+    <text x="0" y="42" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="12" font-weight="800" fill="#FFFFFF" text-anchor="middle">4. CHANNAPATNA</text>
+    <text x="0" y="58" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="9" font-weight="600" fill="#FFB703" text-anchor="middle">Toy Town Highway Hub</text>
+  </g>
+
+  <!-- Location 5: Maddur -->
+  <g transform="translate(660, 186)">
+    <circle cx="0" cy="0" r="10" fill="#0B132B" stroke="#FB8500" stroke-width="4"/>
+    <circle cx="0" cy="0" r="4" fill="#FFFFFF"/>
+    <rect x="-55" y="-62" width="110" height="42" rx="6" fill="#0F172A" stroke="#FB8500" stroke-width="1.5"/>
+    <text x="0" y="-44" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="12" font-weight="800" fill="#FFFFFF" text-anchor="middle">5. MADDUR</text>
+    <text x="0" y="-28" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="9" font-weight="600" fill="#FB8500" text-anchor="middle">Shimsha River Bridge</text>
+  </g>
+
+  <!-- Location 6: Mandya -->
+  <g transform="translate(820, 180)">
+    <circle cx="0" cy="0" r="10" fill="#0B132B" stroke="#FB8500" stroke-width="4"/>
+    <circle cx="0" cy="0" r="4" fill="#FFFFFF"/>
+    <rect x="-65" y="24" width="130" height="42" rx="6" fill="#0F172A" stroke="#FB8500" stroke-width="1.5"/>
+    <text x="0" y="42" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="12" font-weight="800" fill="#FFFFFF" text-anchor="middle">6. MANDYA</text>
+    <text x="0" y="58" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="9" font-weight="600" fill="#FB8500" text-anchor="middle">Sugar City Corridor</text>
+  </g>
+
+  <!-- Legend and Note -->
+  <g transform="translate(40, 310)">
+    <circle cx="8" cy="8" r="6" fill="#FFB703"/>
+    <text x="22" y="12" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="11" font-weight="600" fill="#E2E8F0">Dispatch base: Kumbalgodu | Prompt car towing coverage across all 6 target highway corridors</text>
+  </g>
+</svg>

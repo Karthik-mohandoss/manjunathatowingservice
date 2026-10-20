@@ -1,0 +1,55 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 240" width="100%" height="100%">
+  <defs>
+    <linearGradient id="sb1" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0F172A"/>
+      <stop offset="100%" stop-color="#1E293B"/>
+    </linearGradient>
+    <linearGradient id="warnAmber" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#FFB703"/>
+      <stop offset="100%" stop-color="#FB8500"/>
+    </linearGradient>
+  </defs>
+  <rect width="400" height="240" rx="16" fill="url(#sb1)"/>
+  <line x1="20" y1="200" x2="380" y2="200" stroke="#334155" stroke-width="4"/>
+
+  <!-- Broken-down car with open bonnet / hood -->
+  <g transform="translate(60, 75)">
+    <!-- Car body -->
+    <path d="M20 115 L20 85 Q35 70, 65 65 L95 40 Q115 28, 145 28 L175 28 Q195 28, 205 48 L220 70 L240 78 L240 115 Z" fill="#E2E8F0"/>
+    <!-- Open Bonnet (hood raised up) -->
+    <line x1="205" y1="70" x2="250" y2="35" stroke="#E2E8F0" stroke-width="4"/>
+    <!-- Steam / breakdown puffs from engine bay -->
+    <path d="M225 50 Q230 35, 238 40 T245 25" stroke="#94A3B8" stroke-width="2.5" fill="none" opacity="0.7"/>
+    <path d="M235 55 Q245 42, 250 48 T258 35" stroke="#94A3B8" stroke-width="2" fill="none" opacity="0.5"/>
+    <!-- Car windows -->
+    <path d="M98 42 L70 65 L135 65 L135 34 Z" fill="#0F172A"/>
+    <path d="M140 34 L140 65 L195 65 L180 42 Z" fill="#0F172A"/>
+    <!-- Wheels -->
+    <circle cx="65" cy="115" r="18" fill="#0B132B" stroke="#64748B" stroke-width="5"/>
+    <circle cx="195" cy="115" r="18" fill="#0B132B" stroke="#64748B" stroke-width="5"/>
+    <!-- Hazard Warning Lights (Flashing Amber) -->
+    <circle cx="25" cy="85" r="5" fill="url(#warnAmber)"/>
+    <circle cx="238" cy="85" r="5" fill="url(#warnAmber)"/>
+  </g>
+
+  <!-- Emergency Warning Triangle on roadside -->
+  <g transform="translate(45, 155)">
+    <polygon points="18,0 0,35 36,35" fill="#EF4444" stroke="#DC2626" stroke-width="2"/>
+    <polygon points="18,8 7,30 29,30" fill="#0F172A"/>
+    <polygon points="18,14 11,27 25,27" fill="#F87171"/>
+  </g>
+
+  <!-- Tow Truck Hook arriving on the right -->
+  <g transform="translate(305, 50)">
+    <path d="M40 0 L40 90 L20 115 L5 110" stroke="#FFB703" stroke-width="4" fill="none"/>
+    <circle cx="20" cy="115" r="6" fill="#FFB703"/>
+    <!-- Wrench & Assistance Badge -->
+    <circle cx="50" cy="50" r="26" fill="#0284C7"/>
+    <!-- Spanner tool icon -->
+    <path d="M43 43 L57 57 M40 45 L45 40 L50 45 L45 50 Z" stroke="#FFFFFF" stroke-width="3" fill="none" stroke-linecap="round"/>
+  </g>
+
+  <!-- Service Badge Tag -->
+  <rect x="24" y="20" width="165" height="28" rx="6" fill="#FFB703"/>
+  <text x="34" y="38" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="11" font-weight="800" fill="#0B132B">BREAKDOWN RECOVERY</text>
+</svg>

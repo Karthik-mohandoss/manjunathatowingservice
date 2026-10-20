@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="64" height="64">
+  <defs>
+    <linearGradient id="favAmber" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#FFB703"/>
+      <stop offset="100%" stop-color="#FB8500"/>
+    </linearGradient>
+  </defs>
+  <rect width="64" height="64" rx="14" fill="#0B132B"/>
+  <path d="M32 6 L56 18 L56 46 L32 58 L8 46 L8 18 Z" fill="#1E293B" stroke="url(#favAmber)" stroke-width="2.5"/>
+  <!-- Tow Truck Graphic -->
+  <path d="M16 40 L16 30 L28 30 L35 35 L35 40 Z" fill="url(#favAmber)"/>
+  <path d="M26 32 L19 32 L19 35 L30 35 Z" fill="#0B132B"/>
+  <path d="M35 40 L48 40 L48 37 L39 33 L35 37 Z" fill="#94A3B8"/>
+  <path d="M37 33 L50 24 L50 26 L39 35 Z" fill="url(#favAmber)"/>
+  <circle cx="23" cy="42" r="3.5" fill="#FFFFFF"/>
+  <circle cx="43" cy="42" r="3.5" fill="#FFFFFF"/>
+</svg>

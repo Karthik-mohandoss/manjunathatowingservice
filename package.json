@@ -1,0 +1,24 @@
+{
+  "name": "manjunatha-towing",
+  "version": "1.0.0",
+  "description": "Manjunatha Towing Service - Car Towing & Car Recovery Local SEO & Google Ads Website",
+  "scripts": {
+    "test": "node validate.js",
+    "test:browser": "node test-browser.js",
+    "validate": "node validate.js",
+    "serve": "npx serve ."
+  },
+  "keywords": [
+    "car-towing",
+    "car-recovery",
+    "bengaluru",
+    "kengeri",
+    "kumbalgodu",
+    "ramanagara",
+    "channapatna",
+    "maddur",
+    "mandya"
+  ],
+  "author": "Manjunatha Towing Service",
+  "license": "ISC"
+}

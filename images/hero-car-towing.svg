@@ -1,0 +1,203 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 650" width="100%" height="100%">
+  <defs>
+    <linearGradient id="skyGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#0B132B"/>
+      <stop offset="40%" stop-color="#1C2541"/>
+      <stop offset="85%" stop-color="#2D3748"/>
+      <stop offset="100%" stop-color="#3A0CA3" stop-opacity="0.3"/>
+    </linearGradient>
+    <linearGradient id="roadGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#1E293B"/>
+      <stop offset="100%" stop-color="#0F172A"/>
+    </linearGradient>
+    <linearGradient id="amberGlow" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#FFB703"/>
+      <stop offset="100%" stop-color="#FB8500"/>
+    </linearGradient>
+    <linearGradient id="carPaint" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#E2E8F0"/>
+      <stop offset="50%" stop-color="#FFFFFF"/>
+      <stop offset="100%" stop-color="#CBD5E1"/>
+    </linearGradient>
+    <linearGradient id="truckPaint" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#0284C7"/>
+      <stop offset="60%" stop-color="#0369A1"/>
+      <stop offset="100%" stop-color="#075985"/>
+    </linearGradient>
+    <radialGradient id="beaconGlow" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#FFB703" stop-opacity="0.9"/>
+      <stop offset="40%" stop-color="#FB8500" stop-opacity="0.5"/>
+      <stop offset="100%" stop-color="#FFB703" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="headlightBeam" cx="0%" cy="50%" r="80%">
+      <stop offset="0%" stop-color="#FEF08A" stop-opacity="0.7"/>
+      <stop offset="60%" stop-color="#FEF08A" stop-opacity="0.15"/>
+      <stop offset="100%" stop-color="#FEF08A" stop-opacity="0"/>
+    </radialGradient>
+    <filter id="softGlow" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="8" result="blur" />
+      <feComposite in="SourceGraphic" in2="blur" operator="over" />
+    </filter>
+  </defs>
+
+  <!-- Sky Background -->
+  <rect width="1200" height="650" fill="url(#skyGrad)"/>
+
+  <!-- Distant Highway Skyline & Hills / Treeline -->
+  <path d="M0 430 Q200 410, 400 425 T800 415 T1200 430 L1200 450 L0 450 Z" fill="#141E33" opacity="0.8"/>
+  <path d="M0 440 Q350 425, 700 438 T1200 435 L1200 460 L0 460 Z" fill="#18233C" opacity="0.9"/>
+
+  <!-- Highway Light Posts -->
+  <g stroke="#475569" stroke-width="3" fill="none">
+    <path d="M120 460 L120 280 Q120 260, 145 260 L160 260"/>
+    <path d="M450 460 L450 250 Q450 230, 480 230 L500 230"/>
+    <path d="M1020 460 L1020 270 Q1020 250, 1050 250 L1070 250"/>
+  </g>
+  <!-- Street Light Glows -->
+  <circle cx="160" cy="265" r="30" fill="#FEF08A" opacity="0.25" filter="url(#softGlow)"/>
+  <circle cx="500" cy="235" r="35" fill="#FEF08A" opacity="0.25" filter="url(#softGlow)"/>
+  <circle cx="1070" cy="255" r="30" fill="#FEF08A" opacity="0.25" filter="url(#softGlow)"/>
+
+  <!-- Highway Road Surface -->
+  <rect y="450" width="1200" height="200" fill="url(#roadGrad)"/>
+  <!-- Road Shoulder Line (Yellow) -->
+  <line x1="0" y1="470" x2="1200" y2="470" stroke="#FFB703" stroke-width="4" stroke-opacity="0.8"/>
+  <!-- Lane Divider Dashes -->
+  <path d="M50 560 L150 560 M280 560 L380 560 M510 560 L610 560 M740 560 L840 560 M970 560 L1070 560" stroke="#E2E8F0" stroke-width="4" stroke-dasharray="30 25" opacity="0.4"/>
+
+  <!-- Roadside Safety Traffic Cones -->
+  <g transform="translate(180, 520)">
+    <polygon points="12,0 0,45 24,45" fill="#FB8500"/>
+    <rect x="-4" y="45" width="32" height="6" rx="2" fill="#0F172A"/>
+    <polygon points="8,15 16,15 18,25 6,25" fill="#FFFFFF"/>
+    <polygon points="5,31 19,31 21,38 3,38" fill="#FFFFFF"/>
+  </g>
+  <g transform="translate(260, 530)">
+    <polygon points="12,0 0,45 24,45" fill="#FB8500"/>
+    <rect x="-4" y="45" width="32" height="6" rx="2" fill="#0F172A"/>
+    <polygon points="8,15 16,15 18,25 6,25" fill="#FFFFFF"/>
+    <polygon points="5,31 19,31 21,38 3,38" fill="#FFFFFF"/>
+  </g>
+
+  <!-- ================= TOW TRUCK & PASSENGER CAR GROUP ================= -->
+  <g id="towTruckRig">
+    <!-- Ground Shadow under vehicles -->
+    <ellipse cx="680" cy="535" rx="420" ry="24" fill="#050B14" opacity="0.8"/>
+
+    <!-- Headlight Beam of Tow Truck casting forward -->
+    <polygon points="980,440 1200,380 1200,540 980,465" fill="url(#headlightBeam)"/>
+
+    <!-- TOW TRUCK CHASSIS & CABIN -->
+    <!-- Lower Body / Chassis Rail -->
+    <rect x="580" y="440" width="370" height="40" rx="4" fill="#1E293B"/>
+
+    <!-- Cab Front Cabin -->
+    <path d="M840 455 L840 350 L910 350 Q930 350, 945 375 L980 430 L980 455 Z" fill="url(#truckPaint)"/>
+    <!-- Cab Window -->
+    <path d="M855 362 L905 362 L935 415 L855 415 Z" fill="#0F172A" stroke="#38BDF8" stroke-width="1.5"/>
+    <path d="M905 362 L930 362 L955 415 L938 415 Z" fill="#1E293B" opacity="0.6"/>
+    <!-- Cab Door Line & Handle -->
+    <line x1="850" y1="358" x2="850" y2="445" stroke="#075985" stroke-width="2"/>
+    <rect x="860" y="420" width="14" height="4" rx="1.5" fill="#E2E8F0"/>
+    <!-- Side Mirror -->
+    <rect x="918" y="380" width="8" height="24" rx="2" fill="#0F172A" stroke="#E2E8F0" stroke-width="1"/>
+    <!-- Front Bumper & Headlights -->
+    <rect x="965" y="440" width="25" height="20" rx="3" fill="#334155"/>
+    <rect x="975" y="435" width="10" height="12" rx="2" fill="#FEF08A" filter="url(#softGlow)"/>
+    <!-- Grille -->
+    <rect x="970" y="420" width="12" height="15" fill="#0F172A"/>
+
+    <!-- Truck Wheels -->
+    <!-- Front Wheel -->
+    <circle cx="920" cy="480" r="32" fill="#0F172A"/>
+    <circle cx="920" cy="480" r="20" fill="#475569"/>
+    <circle cx="920" cy="480" r="10" fill="#CBD5E1"/>
+    <!-- Rear Dual Axle Wheels -->
+    <circle cx="680" cy="480" r="32" fill="#0F172A"/>
+    <circle cx="680" cy="480" r="20" fill="#475569"/>
+    <circle cx="680" cy="480" r="10" fill="#CBD5E1"/>
+    <circle cx="750" cy="480" r="32" fill="#0F172A"/>
+    <circle cx="750" cy="480" r="20" fill="#475569"/>
+    <circle cx="750" cy="480" r="10" fill="#CBD5E1"/>
+
+    <!-- Emergency Beacon Warning Light Bar on Truck Roof -->
+    <rect x="860" y="336" width="55" height="14" rx="4" fill="#0F172A"/>
+    <rect x="865" y="334" width="20" height="10" rx="3" fill="#FFB703" filter="url(#softGlow)"/>
+    <rect x="890" y="334" width="20" height="10" rx="3" fill="#FB8500" filter="url(#softGlow)"/>
+    <!-- Beacon Light Aura -->
+    <ellipse cx="887" cy="336" rx="80" ry="45" fill="url(#beaconGlow)"/>
+
+    <!-- FLATBED DECK (Hydraulic Slide & Tilt Bed) -->
+    <!-- Flatbed Main Platform tilted slightly down to load passenger car -->
+    <polygon points="380,450 830,395 830,410 380,465" fill="#334155" stroke="#475569" stroke-width="2"/>
+    <!-- Safety Yellow Side Stripes on Bed Rail -->
+    <polygon points="400,452 825,398 825,404 400,458" fill="url(#amberGlow)"/>
+    <!-- Hydraulic Cylinder Rams -->
+    <line x1="640" y1="445" x2="690" y2="415" stroke="#CBD5E1" stroke-width="8"/>
+    <line x1="635" y1="447" x2="665" y2="430" stroke="#0284C7" stroke-width="12"/>
+
+    <!-- Winch Mount & Cable onto Car Tow Eye -->
+    <rect x="805" y="380" width="22" height="24" rx="2" fill="#1E293B"/>
+    <circle cx="816" cy="392" r="8" fill="#475569"/>
+    <!-- Heavy Duty Braided Steel Winch Cable -->
+    <line x1="805" y1="392" x2="640" y2="422" stroke="#E2E8F0" stroke-width="2.5" stroke-dasharray="5 1"/>
+
+    <!-- PASSENGER CAR (Sedan securely loaded on flatbed / wheel straps) -->
+    <!-- Car Body -->
+    <g id="passengerSedan" transform="translate(15, -6)">
+      <!-- Car Lower Body Silhouette -->
+      <path d="M410 442 L410 405 Q430 388, 480 384 L530 355 Q560 340, 610 340 L650 340 Q670 340, 685 365 L710 395 L720 408 L720 422 Z" fill="url(#carPaint)"/>
+      <!-- Car Windows (Roof & Pillars) -->
+      <path d="M535 358 L500 384 L605 384 L605 348 Q570 348, 535 358 Z" fill="#0F172A" opacity="0.85"/>
+      <path d="M615 348 L615 384 L675 384 L655 355 Q640 348, 615 348 Z" fill="#0F172A" opacity="0.85"/>
+      <!-- Window Chrome Trims -->
+      <path d="M495 385 L535 356 Q570 346, 650 346 L680 385" stroke="#94A3B8" stroke-width="1.5" fill="none"/>
+      <!-- Car Doors & Seams -->
+      <line x1="565" y1="384" x2="565" y2="430" stroke="#94A3B8" stroke-width="1.2"/>
+      <line x1="625" y1="384" x2="625" y2="425" stroke="#94A3B8" stroke-width="1.2"/>
+      <rect x="575" y="394" width="12" height="3" rx="1" fill="#475569"/>
+      <rect x="635" y="394" width="12" height="3" rx="1" fill="#475569"/>
+      <!-- Tail Light (Amber/Red) -->
+      <rect x="410" y="408" width="8" height="12" rx="2" fill="#EF4444"/>
+      <!-- Headlight (White/Crystal) -->
+      <polygon points="708,400 720,405 718,416 706,412" fill="#E2E8F0" stroke="#38BDF8" stroke-width="1"/>
+      
+      <!-- Passenger Car Wheels resting securely on Flatbed with Safety Tie-Down Straps -->
+      <!-- Rear Wheel -->
+      <circle cx="470" cy="445" r="22" fill="#0F172A"/>
+      <circle cx="470" cy="445" r="14" fill="#64748B"/>
+      <circle cx="470" cy="445" r="6" fill="#E2E8F0"/>
+      <!-- Front Wheel -->
+      <circle cx="675" cy="425" r="22" fill="#0F172A"/>
+      <circle cx="675" cy="425" r="14" fill="#64748B"/>
+      <circle cx="675" cy="425" r="6" fill="#E2E8F0"/>
+
+      <!-- High-Visibility Yellow Wheel Tie-Down Ratchet Straps -->
+      <path d="M450 455 Q470 420, 490 450" stroke="#FFB703" stroke-width="4.5" fill="none"/>
+      <path d="M655 435 Q675 400, 695 430" stroke="#FFB703" stroke-width="4.5" fill="none"/>
+    </g>
+
+    <!-- Tow Truck Door Decal / Branding Text -->
+    <text x="860" y="435" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="11" font-weight="900" fill="#FFB703" letter-spacing="0.5">MANJUNATHA</text>
+    <text x="860" y="446" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="8.5" font-weight="700" fill="#E2E8F0">CAR TOWING</text>
+  </g>
+
+  <!-- High-contrast Trust Overlay Badges for Hero Graphics -->
+  <g transform="translate(60, 60)">
+    <rect width="320" height="74" rx="12" fill="#0B132B" fill-opacity="0.9" stroke="#FFB703" stroke-width="1.5"/>
+    <circle cx="36" cy="37" r="18" fill="#FFB703"/>
+    <!-- Phone / Alert Icon -->
+    <path d="M30 30 C30 28, 42 28, 42 30 C42 33, 39 34, 38 36 C37 38, 36 39, 36 41 M36 44 L36 46" stroke="#0B132B" stroke-width="2.5" stroke-linecap="round" fill="none"/>
+    <text x="66" y="32" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="13" font-weight="800" fill="#FFB703" letter-spacing="0.5">CAR BREAKDOWN &amp; TOWING</text>
+    <text x="66" y="52" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="12" font-weight="600" fill="#E2E8F0">Bengaluru &amp; Nearby Locations</text>
+  </g>
+
+  <g transform="translate(60, 150)">
+    <rect width="280" height="58" rx="10" fill="#0F172A" fill-opacity="0.85" stroke="#334155" stroke-width="1.5"/>
+    <circle cx="30" cy="29" r="12" fill="#10B981"/>
+    <!-- Checkmark -->
+    <path d="M24 29 L28 33 L36 24" stroke="#FFFFFF" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+    <text x="52" y="27" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="12" font-weight="700" fill="#FFFFFF">Cars Only — Strict Focus</text>
+    <text x="52" y="44" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="10.5" font-weight="500" fill="#94A3B8">Hatchbacks, Sedans &amp; SUVs</text>
+  </g>
+</svg>

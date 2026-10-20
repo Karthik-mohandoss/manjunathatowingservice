@@ -1,0 +1,47 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 460 70" width="100%" height="100%">
+  <defs>
+    <linearGradient id="amberGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#FFB703"/>
+      <stop offset="100%" stop-color="#FB8500"/>
+    </linearGradient>
+    <linearGradient id="truckBody" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#1E293B"/>
+      <stop offset="100%" stop-color="#334155"/>
+    </linearGradient>
+  </defs>
+
+  <!-- Logo Mark / Icon -->
+  <g transform="translate(4, 6)">
+    <!-- Safety Hexagon / Shield Badge -->
+    <path d="M28 2 L52 14 L52 42 L28 54 L4 42 L4 14 Z" fill="#0B132B" stroke="url(#amberGrad)" stroke-width="2.5" />
+    
+    <!-- Tow Truck Silhouette -->
+    <!-- Cabin -->
+    <path d="M12 36 L12 28 L24 28 L30 32 L30 36 Z" fill="url(#amberGrad)"/>
+    <!-- Window -->
+    <path d="M22 29.5 L15 29.5 L15 32 L26 32 Z" fill="#0B132B"/>
+    <!-- Tow Bed / Boom Crane -->
+    <path d="M30 36 L44 36 L44 34 L36 30 L30 34 Z" fill="#94A3B8"/>
+    <path d="M32 30 L46 22 L46 24 L34 32 Z" fill="url(#amberGrad)"/>
+    <!-- Winch cable -->
+    <path d="M46 23 L49 29 L47 31" stroke="#FFB703" stroke-width="1.2" fill="none"/>
+    <!-- Wheels -->
+    <circle cx="18" cy="38" r="3.5" fill="#E2E8F0" stroke="#0B132B" stroke-width="1.5"/>
+    <circle cx="38" cy="38" r="3.5" fill="#E2E8F0" stroke="#0B132B" stroke-width="1.5"/>
+  </g>
+
+  <!-- Typography -->
+  <g transform="translate(68, 12)">
+    <!-- Primary Brand Name -->
+    <text x="0" y="24" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif" font-size="22" font-weight="900" fill="#FFFFFF" letter-spacing="0.5">
+      MANJUNATHA
+    </text>
+    <text x="175" y="24" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif" font-size="22" font-weight="900" fill="#FFB703" letter-spacing="0.5">
+      TOWING
+    </text>
+    <!-- Tagline: Strictly Cars -->
+    <text x="1" y="42" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif" font-size="10.5" font-weight="700" fill="#94A3B8" letter-spacing="1.8">
+      CAR TOWING &amp; CAR RECOVERY SERVICE
+    </text>
+  </g>
+</svg>

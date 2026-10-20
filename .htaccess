@@ -1,0 +1,61 @@
+# ==============================================================================
+# Hostinger Apache / LiteSpeed Configuration for Manjunatha Towing Service
+# Domain: https://manjunathatowingservice.in
+# ==============================================================================
+
+# Enable Rewrite Engine
+<IfModule mod_rewrite.c>
+  RewriteEngine On
+  RewriteBase /
+
+  # 1. Force HTTPS
+  RewriteCond %{HTTPS} off
+  RewriteRule ^(.*)$ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
+
+  # 2. Force non-www (canonicalize to manjunathatowingservice.in)
+  RewriteCond %{HTTP_HOST} ^www\.manjunathatowingservice\.in$ [NC]
+  RewriteRule ^(.*)$ https://manjunathatowingservice.in/$1 [L,R=301]
+
+  # 3. Clean directory trailing slash handling
+  RewriteCond %{REQUEST_FILENAME} -d
+  RewriteCond %{REQUEST_URI} !(/$)
+  RewriteRule (.*) %{REQUEST_URI}/ [R=301,L]
+</IfModule>
+
+# ==============================================================================
+# MIME Types Configuration
+# ==============================================================================
+<IfModule mod_mime.c>
+  AddType image/svg+xml .svg .svgz
+  AddEncoding gzip .svgz
+  AddType application/xml .xml
+  AddType text/plain .txt
+  AddType text/css .css
+  AddType application/javascript .js
+</IfModule>
+
+# ==============================================================================
+# Browser Caching & Compression (High PageSpeed for Google Ads)
+# ==============================================================================
+<IfModule mod_deflate.c>
+  AddOutputFilterByType DEFLATE text/html text/plain text/xml text/css application/javascript image/svg+xml
+</IfModule>
+
+<IfModule mod_expires.c>
+  ExpiresActive On
+  ExpiresDefault "access plus 1 month"
+  ExpiresByType text/html "access plus 1 hour"
+  ExpiresByType text/css "access plus 1 month"
+  ExpiresByType application/javascript "access plus 1 month"
+  ExpiresByType image/svg+xml "access plus 1 year"
+  ExpiresByType image/x-icon "access plus 1 year"
+</IfModule>
+
+# ==============================================================================
+# Security Headers
+# ==============================================================================
+<IfModule mod_headers.c>
+  Header set X-Content-Type-Options "nosniff"
+  Header set X-Frame-Options "SAMEORIGIN"
+  Header set Referrer-Policy "strict-origin-when-cross-origin"
+</IfModule>
