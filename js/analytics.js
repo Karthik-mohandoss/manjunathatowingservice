@@ -19,14 +19,14 @@
 (function () {
   'use strict';
 
-  // Configurable tracking parameters (Leave empty until assigned by account owner)
+  // Configurable tracking parameters (Configured from Google Ads account)
   window.TRACKING_CONFIG = {
-    gtmId: '',                     // e.g., 'GTM-XXXXXXX'
-    ga4MeasurementId: '',          // e.g., 'G-XXXXXXXXXX'
-    googleAdsId: '',               // e.g., 'AW-XXXXXXXXXX'
-    googleAdsCallConversionLabel: '', // e.g., 'XyZ12345678'
-    googleAdsLeadConversionLabel: '', // e.g., 'AbC98765432'
-    debug: false                   // Set to true to inspect tracking events in console
+    gtmId: '',                        // e.g., 'GTM-XXXXXXX'
+    ga4MeasurementId: '',             // e.g., 'G-XXXXXXXXXX'
+    googleAdsId: 'AW-18518049268',    // Live Google Ads Account ID
+    googleAdsCallConversionLabel: '', // Optional dedicated call conversion label
+    googleAdsLeadConversionLabel: 'iHYtCNGv1aQdEPSDjP5E', // Contact conversion label
+    debug: false                      // Set to true to inspect tracking events in console
   };
 
   // Conversion deduplication cache for session
@@ -48,21 +48,29 @@
     // 2. Google Analytics 4 / Google Ads gtag.js initialization
     var mainGoogleId = window.TRACKING_CONFIG.ga4MeasurementId || window.TRACKING_CONFIG.googleAdsId;
     if (mainGoogleId && mainGoogleId.trim() !== '') {
-      var script = document.createElement('script');
-      script.async = true;
-      script.src = 'https://www.googletagmanager.com/gtag/js?id=' + encodeURIComponent(mainGoogleId);
-      document.head.appendChild(script);
+      var existingTagScript = document.querySelector('script[src*="googletagmanager.com/gtag/js"]');
+      if (!existingTagScript && !window.gtag) {
+        var script = document.createElement('script');
+        script.async = true;
+        script.src = 'https://www.googletagmanager.com/gtag/js?id=' + encodeURIComponent(mainGoogleId);
+        document.head.appendChild(script);
 
-      window.dataLayer = window.dataLayer || [];
-      window.gtag = function(){ window.dataLayer.push(arguments); };
-      window.gtag('js', new Date());
+        window.dataLayer = window.dataLayer || [];
+        window.gtag = function(){ window.dataLayer.push(arguments); };
+        window.gtag('js', new Date());
+      } else {
+        window.dataLayer = window.dataLayer || [];
+        if (!window.gtag) {
+          window.gtag = function(){ window.dataLayer.push(arguments); };
+        }
+      }
 
       if (window.TRACKING_CONFIG.ga4MeasurementId) {
         window.gtag('config', window.TRACKING_CONFIG.ga4MeasurementId, {
           send_page_view: true
         });
       }
-      if (window.TRACKING_CONFIG.googleAdsId) {
+      if (window.TRACKING_CONFIG.googleAdsId && !existingTagScript) {
         window.gtag('config', window.TRACKING_CONFIG.googleAdsId);
       }
     }
@@ -230,6 +238,17 @@
     });
   });
 
+  /**
+   * Directly track Google Ads Conversion (Contact)
+   */
+  function trackGoogleAdsConversion() {
+    if (typeof window.gtag === 'function' && window.TRACKING_CONFIG.googleAdsId && window.TRACKING_CONFIG.googleAdsLeadConversionLabel) {
+      window.gtag('event', 'conversion', {
+        'send_to': window.TRACKING_CONFIG.googleAdsId + '/' + window.TRACKING_CONFIG.googleAdsLeadConversionLabel
+      });
+    }
+  }
+
   // Expose analytics methods globally for form scripts
   window.MTSAnalytics = {
     trackEvent: trackEvent,
@@ -238,6 +257,7 @@
     trackFormStart: trackFormStart,
     trackFormSubmitAttempt: trackFormSubmitAttempt,
     trackFormSuccess: trackFormSuccess,
-    trackFormWhatsAppHandoff: trackFormWhatsAppHandoff
+    trackFormWhatsAppHandoff: trackFormWhatsAppHandoff,
+    trackGoogleAdsConversion: trackGoogleAdsConversion
   };
 })();

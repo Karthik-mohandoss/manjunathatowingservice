@@ -18,6 +18,7 @@ const REQUIRED_FILES = [
   'car-towing-service-mandya/index.html',
   'privacy-policy.html',
   'terms.html',
+  'thank-you.html',
   'sitemap.xml',
   'robots.txt',
   'css/style.css',
@@ -262,6 +263,32 @@ LOCATIONS.forEach(loc => {
   assert(locContent.includes('10-Minute Recovery Target'), `${loc.name} contains "10-Minute Recovery Target" badge`);
   assert(locContent.includes('Fast Car Towing Assistance &ndash; Contact Us for Availability') || locContent.includes('Fast Car Towing Assistance – Contact Us for Availability'), `${loc.name} contains "Fast Car Towing Assistance – Contact Us for Availability" message`);
 });
+
+// 11. Google Ads Tag (gtag.js) & Contact Conversion Snippet Verification
+console.log('\n11. Verifying Google Ads Tag (AW-18518049268) & Conversion Snippet...');
+const GOOGLE_ADS_ID = 'AW-18518049268';
+const CONVERSION_SNIPPET = 'AW-18518049268/iHYtCNGv1aQdEPSDjP5E';
+
+const pagesWithGoogleTag = [
+  'index.html',
+  ...LOCATIONS.map(l => l.file),
+  'privacy-policy.html',
+  'terms.html',
+  'thank-you.html'
+];
+
+pagesWithGoogleTag.forEach(relPath => {
+  const content = fs.readFileSync(path.join(ROOT_DIR, relPath), 'utf8');
+  assert(content.includes(GOOGLE_ADS_ID), `Google tag (${GOOGLE_ADS_ID}) present in ${relPath}`);
+  assert(content.includes('https://www.googletagmanager.com/gtag/js?id=' + GOOGLE_ADS_ID), `gtag.js script loader present in ${relPath}`);
+});
+
+const thankYouContent = fs.readFileSync(path.join(ROOT_DIR, 'thank-you.html'), 'utf8');
+assert(thankYouContent.includes(CONVERSION_SNIPPET), `thank-you.html contains Contact conversion snippet (${CONVERSION_SNIPPET})`);
+assert(thankYouContent.includes("gtag('event', 'conversion'"), 'thank-you.html invokes conversion event');
+
+assert(analyticsContent.includes(`googleAdsId: '${GOOGLE_ADS_ID}'`), `analytics.js has live googleAdsId: ${GOOGLE_ADS_ID}`);
+assert(analyticsContent.includes("googleAdsLeadConversionLabel: 'iHYtCNGv1aQdEPSDjP5E'"), 'analytics.js has live Contact conversion label');
 
 // Summary
 console.log('\n======================================================');

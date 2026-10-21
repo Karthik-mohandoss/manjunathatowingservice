@@ -40,23 +40,26 @@ All landing pages are structured with unique URLs, semantic HTML5, individual me
 
 ## 3. Google Ads & Analytics Tracking Setup
 
-Conversion measurement is managed in `js/analytics.js`.
+Live Google Ads conversion tracking is installed across all HTML pages and configured in `js/analytics.js`:
 
-### Where to configure IDs:
-Open `js/analytics.js` and edit lines 24–31:
+- **Google Ads Account ID:** `AW-18518049268`
+- **Google Tag:** Placed in `<head>` of all 10 pages (`index.html`, 6 location pages, `privacy-policy.html`, `terms.html`, `thank-you.html`).
+- **Contact Conversion Event Snippet:** Placed on `/thank-you.html` (`AW-18518049268/iHYtCNGv1aQdEPSDjP5E`).
+- **Configured Tracking Object (`js/analytics.js`):**
 
 ```javascript
 window.TRACKING_CONFIG = {
-  gtmId: 'GTM-XXXXXXX',                     // Replace with your GTM Container ID
-  ga4MeasurementId: 'G-XXXXXXXXXX',          // Replace with your GA4 Measurement ID
-  googleAdsId: 'AW-XXXXXXXXX',               // Replace with your Google Ads Account ID
-  googleAdsCallConversionLabel: 'AbC123XyZ', // Replace with your Call Conversion Label
-  googleAdsLeadConversionLabel: 'DeF456UvW', // Replace with your Form Lead Conversion Label
-  debug: false                               // Set to true to verify events in console
+  gtmId: '',                                 // Optional GTM container ID
+  ga4MeasurementId: '',                      // Optional GA4 measurement ID
+  googleAdsId: 'AW-18518049268',             // Live Google Ads Account ID
+  googleAdsCallConversionLabel: '',          // Optional dedicated Call Conversion Label
+  googleAdsLeadConversionLabel: 'iHYtCNGv1aQdEPSDjP5E', // Contact Conversion Label
+  debug: false                               // Set to true to inspect tracking events in console
 };
 ```
 
 ### Tracked Conversion Events:
+- `gtag('event', 'conversion', {'send_to': 'AW-18518049268/iHYtCNGv1aQdEPSDjP5E'})`: Fires automatically on `/thank-you.html` for Contact conversions.
 - `phone_call_click`: Triggered when any `tel:` link is tapped. Captures `cta_placement` (header, hero, floating, sticky bar, footer) and `service_location`.
 - `whatsapp_click`: Triggered when any WhatsApp button is clicked. Captures `cta_placement` and pre-filled message context.
 - `enquiry_form_start`: Fires once per session upon initial user input into any form field.

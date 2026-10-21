@@ -83,7 +83,8 @@ async function runBrowserTests() {
       { name: 'Maddur Page', url: `http://127.0.0.1:${PORT}/car-towing-service-maddur/` },
       { name: 'Mandya Page', url: `http://127.0.0.1:${PORT}/car-towing-service-mandya/` },
       { name: 'Privacy Policy', url: `http://127.0.0.1:${PORT}/privacy-policy.html` },
-      { name: 'Terms of Service', url: `http://127.0.0.1:${PORT}/terms.html` }
+      { name: 'Terms of Service', url: `http://127.0.0.1:${PORT}/terms.html` },
+      { name: 'Thank You Page', url: `http://127.0.0.1:${PORT}/thank-you.html` }
     ];
 
     const viewports = [
