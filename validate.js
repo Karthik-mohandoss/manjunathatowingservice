@@ -19,6 +19,7 @@ const REQUIRED_FILES = [
   'privacy-policy.html',
   'terms.html',
   'thank-you.html',
+  'contact.html',
   'sitemap.xml',
   'robots.txt',
   'css/style.css',
@@ -274,7 +275,8 @@ const pagesWithGoogleTag = [
   ...LOCATIONS.map(l => l.file),
   'privacy-policy.html',
   'terms.html',
-  'thank-you.html'
+  'thank-you.html',
+  'contact.html'
 ];
 
 pagesWithGoogleTag.forEach(relPath => {
@@ -286,6 +288,10 @@ pagesWithGoogleTag.forEach(relPath => {
 const thankYouContent = fs.readFileSync(path.join(ROOT_DIR, 'thank-you.html'), 'utf8');
 assert(thankYouContent.includes(CONVERSION_SNIPPET), `thank-you.html contains Contact conversion snippet (${CONVERSION_SNIPPET})`);
 assert(thankYouContent.includes("gtag('event', 'conversion'"), 'thank-you.html invokes conversion event');
+
+const contactContent = fs.readFileSync(path.join(ROOT_DIR, 'contact.html'), 'utf8');
+assert(contactContent.includes(CONVERSION_SNIPPET), `contact.html contains Contact conversion snippet (${CONVERSION_SNIPPET})`);
+assert(contactContent.includes("gtag('event', 'conversion'"), 'contact.html invokes conversion event');
 
 assert(analyticsContent.includes(`googleAdsId: '${GOOGLE_ADS_ID}'`), `analytics.js has live googleAdsId: ${GOOGLE_ADS_ID}`);
 assert(analyticsContent.includes("googleAdsLeadConversionLabel: 'iHYtCNGv1aQdEPSDjP5E'"), 'analytics.js has live Contact conversion label');
