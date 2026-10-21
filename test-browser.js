@@ -323,6 +323,57 @@ async function runBrowserTests() {
 
     await formPage.close();
 
+    // Call Button Google Ads Conversion Verification
+    console.log(`\n======================================================`);
+    console.log(`  TESTING CALL BUTTON GOOGLE ADS CONVERSION TRACKING`);
+    console.log(`======================================================`);
+
+    const callTestPage = await browser.newPage();
+    await callTestPage.setViewport({ width: 375, height: 667, isMobile: true });
+    await callTestPage.goto(`http://127.0.0.1:${PORT}/`, { waitUntil: 'domcontentloaded' });
+
+    const callConversionResult = await callTestPage.evaluate(() => {
+      const conversionsLogged = [];
+      const originalGtag = window.gtag;
+      window.gtag = function(type, action, params) {
+        if (action === 'conversion') {
+          conversionsLogged.push(params);
+        }
+        if (typeof originalGtag === 'function') {
+          originalGtag.apply(this, arguments);
+        }
+      };
+
+      // Click the mobile sticky call button
+      const stickyCallBtn = document.querySelector('a.mobile-sticky-btn-call');
+      if (stickyCallBtn) {
+        stickyCallBtn.click();
+      }
+
+      return {
+        hasStickyBtn: !!stickyCallBtn,
+        conversions: conversionsLogged
+      };
+    });
+
+    if (!callConversionResult.hasStickyBtn) {
+      failures.push('Mobile sticky call button not found on homepage');
+      console.error('  ✗ Mobile sticky call button missing');
+    } else if (callConversionResult.conversions.length === 0) {
+      failures.push('Clicking mobile call button failed to dispatch Google Ads conversion');
+      console.error('  ✗ No Google Ads conversion dispatched on call button click');
+    } else {
+      const conv = callConversionResult.conversions[0];
+      if (conv.send_to === 'AW-18518049268/iHYtCNGv1aQdEPSDjP5E' && conv.transport_type === 'beacon') {
+        console.log(`  ✓ Call button click triggered Google Ads conversion: ${conv.send_to} (transport: ${conv.transport_type})`);
+      } else {
+        failures.push(`Call conversion payload incorrect: ${JSON.stringify(conv)}`);
+        console.error('  ✗ Call conversion payload incorrect:', conv);
+      }
+    }
+
+    await callTestPage.close();
+
   } catch (err) {
     failures.push(`Browser test execution error: ${err.message}`);
     console.error('[Puppeteer Error]', err);

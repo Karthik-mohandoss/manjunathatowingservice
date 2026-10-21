@@ -24,8 +24,9 @@
     gtmId: '',                        // e.g., 'GTM-XXXXXXX'
     ga4MeasurementId: '',             // e.g., 'G-XXXXXXXXXX'
     googleAdsId: 'AW-18518049268',    // Live Google Ads Account ID
-    googleAdsCallConversionLabel: '', // Optional dedicated call conversion label
+    googleAdsCallConversionLabel: 'iHYtCNGv1aQdEPSDjP5E', // Live Contact conversion label for call button clicks
     googleAdsLeadConversionLabel: 'iHYtCNGv1aQdEPSDjP5E', // Contact conversion label
+    googleAdsWhatsAppConversionLabel: 'iHYtCNGv1aQdEPSDjP5E', // Contact conversion label for WhatsApp clicks
     debug: false                      // Set to true to inspect tracking events in console
   };
 
@@ -109,17 +110,33 @@
     if (typeof window.gtag === 'function') {
       window.gtag('event', eventName, fullPayload);
 
-      // Handle direct Google Ads conversion mapping if labels are supplied
-      if (eventName === 'phone_call_click' && window.TRACKING_CONFIG.googleAdsId && window.TRACKING_CONFIG.googleAdsCallConversionLabel) {
-        window.gtag('event', 'conversion', {
-          'send_to': window.TRACKING_CONFIG.googleAdsId + '/' + window.TRACKING_CONFIG.googleAdsCallConversionLabel
-        });
+      // Handle direct Google Ads conversion mapping for Phone Calls
+      if (eventName === 'phone_call_click' && window.TRACKING_CONFIG.googleAdsId) {
+        var callLabel = window.TRACKING_CONFIG.googleAdsCallConversionLabel || window.TRACKING_CONFIG.googleAdsLeadConversionLabel;
+        if (callLabel) {
+          window.gtag('event', 'conversion', {
+            'send_to': window.TRACKING_CONFIG.googleAdsId + '/' + callLabel,
+            'transport_type': 'beacon'
+          });
+        }
+      }
+
+      // Handle direct Google Ads conversion mapping for WhatsApp Clicks
+      if (eventName === 'whatsapp_click' && window.TRACKING_CONFIG.googleAdsId) {
+        var waLabel = window.TRACKING_CONFIG.googleAdsWhatsAppConversionLabel || window.TRACKING_CONFIG.googleAdsLeadConversionLabel;
+        if (waLabel) {
+          window.gtag('event', 'conversion', {
+            'send_to': window.TRACKING_CONFIG.googleAdsId + '/' + waLabel,
+            'transport_type': 'beacon'
+          });
+        }
       }
 
       // ONLY verified API delivery triggers lead conversion mapping
       if (eventName === 'enquiry_form_success' && window.TRACKING_CONFIG.googleAdsId && window.TRACKING_CONFIG.googleAdsLeadConversionLabel) {
         window.gtag('event', 'conversion', {
-          'send_to': window.TRACKING_CONFIG.googleAdsId + '/' + window.TRACKING_CONFIG.googleAdsLeadConversionLabel
+          'send_to': window.TRACKING_CONFIG.googleAdsId + '/' + window.TRACKING_CONFIG.googleAdsLeadConversionLabel,
+          'transport_type': 'beacon'
         });
       }
     }

@@ -289,6 +289,9 @@ assert(thankYouContent.includes("gtag('event', 'conversion'"), 'thank-you.html i
 
 assert(analyticsContent.includes(`googleAdsId: '${GOOGLE_ADS_ID}'`), `analytics.js has live googleAdsId: ${GOOGLE_ADS_ID}`);
 assert(analyticsContent.includes("googleAdsLeadConversionLabel: 'iHYtCNGv1aQdEPSDjP5E'"), 'analytics.js has live Contact conversion label');
+assert(analyticsContent.includes("googleAdsCallConversionLabel: 'iHYtCNGv1aQdEPSDjP5E'"), 'analytics.js has live Call conversion label for call button clicks');
+assert(analyticsContent.includes("phone_call_click") && analyticsContent.includes("transport_type': 'beacon'"), 'analytics.js dispatches Google Ads conversion on phone_call_click with beacon transport');
+assert(analyticsContent.includes("whatsapp_click") && analyticsContent.includes("googleAdsWhatsAppConversionLabel"), 'analytics.js dispatches Google Ads conversion on whatsapp_click');
 
 // Summary
 console.log('\n======================================================');
