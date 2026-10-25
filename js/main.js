@@ -13,8 +13,8 @@
     // If you have a custom backend or webhook endpoint (e.g., Firebase Function, Zapier, Webhook, REST API),
     // set the URL string below. If left empty (''), the form uses direct WhatsApp handoff.
     apiEndpoint: '',
-    businessPhone: '9845384726',
-    whatsappNumber: '919845384726'
+    businessPhone: '8050469086',
+    whatsappNumber: '918050469086'
   };
 
   document.addEventListener('DOMContentLoaded', function () {
@@ -267,7 +267,7 @@
             var waUrl = 'https://wa.me/' + FORM_CONFIG.whatsappNumber + '?text=' + encodeURIComponent(waMessage);
 
             if (successAlert) {
-              successAlert.innerHTML = '<strong>Enquiry Details Prepared:</strong> To arrange towing assistance directly with Manjunatha Towing Service, please send your prepared details on WhatsApp or call <a href="tel:9845384726" style="text-decoration:underline;font-weight:700;">98453 84726</a> to confirm availability and pricing.<br><a href="' + waUrl + '" target="_blank" rel="noopener noreferrer" class="btn btn-whatsapp btn-sm" style="margin-top:10px;">Send Details on WhatsApp</a>';
+              successAlert.innerHTML = '<strong>Enquiry Details Prepared:</strong> To arrange towing assistance directly with Manjunatha Towing Service, please send your prepared details on WhatsApp or call <a href="tel:8050469086" style="text-decoration:underline;font-weight:700;">80504 69086</a> to confirm availability and pricing.<br><a href="' + waUrl + '" target="_blank" rel="noopener noreferrer" class="btn btn-whatsapp btn-sm" style="margin-top:10px;">Send Details on WhatsApp</a>';
               successAlert.classList.add('is-visible');
             }
 
@@ -306,7 +306,7 @@
 
     function handleFailedDelivery(submitBtn, originalBtnText, errorAlert, errorMsg) {
       if (errorAlert) {
-        errorAlert.innerHTML = '<strong>Unable to submit enquiry online.</strong> Please call us directly at <a href="tel:9845384726" style="text-decoration:underline;font-weight:700;">98453 84726</a> for immediate car towing assistance.';
+        errorAlert.innerHTML = '<strong>Unable to submit enquiry online.</strong> Please call us directly at <a href="tel:8050469086" style="text-decoration:underline;font-weight:700;">80504 69086</a> for immediate car towing assistance.';
         errorAlert.classList.add('is-visible');
       }
       submitBtn.disabled = false;

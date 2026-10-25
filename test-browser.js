@@ -153,20 +153,20 @@ async function runBrowserTests() {
           return { telLinks, waLinks };
         });
 
-        const invalidTel = linkAudit.telLinks.filter(href => href !== 'tel:9845384726');
+        const invalidTel = linkAudit.telLinks.filter(href => href !== 'tel:8050469086');
         if (invalidTel.length > 0) {
           failures.push(`${p.name} has invalid tel links: ${invalidTel.join(', ')}`);
           console.error(`  ✗ Invalid tel links found:`, invalidTel);
         } else {
-          console.log(`  ✓ All ${linkAudit.telLinks.length} tel links strictly use tel:9845384726`);
+          console.log(`  ✓ All ${linkAudit.telLinks.length} tel links strictly use tel:8050469086`);
         }
 
-        const invalidWa = linkAudit.waLinks.filter(href => !href.includes('919845384726'));
+        const invalidWa = linkAudit.waLinks.filter(href => !href.includes('918050469086'));
         if (invalidWa.length > 0) {
           failures.push(`${p.name} has invalid WhatsApp links: ${invalidWa.join(', ')}`);
           console.error(`  ✗ Invalid WhatsApp links found:`, invalidWa);
         } else if (linkAudit.waLinks.length > 0) {
-          console.log(`  ✓ All ${linkAudit.waLinks.length} WhatsApp links target +91 98453 84726`);
+          console.log(`  ✓ All ${linkAudit.waLinks.length} WhatsApp links target +91 80504 69086`);
         }
 
         // Check floating buttons and mobile bottom bar visibility
@@ -265,7 +265,7 @@ async function runBrowserTests() {
 
       console.log('\n3. Testing valid submission & WhatsApp handoff...');
       await formPage.$eval('#cust-name', el => el.value = 'Ramesh Kumar');
-      await formPage.$eval('#cust-phone', el => el.value = '9845384726');
+      await formPage.$eval('#cust-phone', el => el.value = '8050469086');
       await formPage.$eval('#cust-pickup', el => el.value = 'Near Kengeri Bus Terminal');
       await formPage.$eval('#cust-dest', el => el.value = 'Authorised Service Center, Nayandahalli');
       await formPage.$eval('#cust-car', el => el.value = 'Hyundai i20');
@@ -305,11 +305,11 @@ async function runBrowserTests() {
       console.log(`  ✓ Status alert displayed: ${handoffResult.alertVisible}`);
       console.log(`  ✓ Intercepted WhatsApp URL: ${handoffResult.interceptedUrl ? handoffResult.interceptedUrl.substring(0, 70) + '...' : 'NONE'}`);
 
-      if (!handoffResult.interceptedUrl || !handoffResult.interceptedUrl.includes('wa.me/919845384726')) {
-        failures.push('WhatsApp handoff did not open wa.me/919845384726 with correct format');
+      if (!handoffResult.interceptedUrl || !handoffResult.interceptedUrl.includes('wa.me/918050469086')) {
+        failures.push('WhatsApp handoff did not open wa.me/918050469086 with correct format');
         console.error('  ✗ WhatsApp handoff URL missing or incorrect');
       } else {
-        console.log('  ✓ WhatsApp handoff URL targets +91 98453 84726 with encoded car details');
+        console.log('  ✓ WhatsApp handoff URL targets +91 80504 69086 with encoded car details');
       }
 
       // Check URL parameters in interceptedUrl
