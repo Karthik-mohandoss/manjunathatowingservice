@@ -138,11 +138,11 @@ htmlFiles.forEach(relPath => {
   const content = fs.readFileSync(path.join(ROOT_DIR, relPath), 'utf8');
 
   if (content.includes('href="tel:')) {
-    assert(content.includes('href="tel:9845384726"'), `Phone link is tel:9845384726 in ${relPath}`);
+    assert(content.includes('href="tel:8050469086"'), `Phone link is tel:8050469086 in ${relPath}`);
   }
 
   if (content.includes('wa.me/')) {
-    assert(content.includes('wa.me/919845384726'), `WhatsApp link uses 919845384726 in ${relPath}`);
+    assert(content.includes('wa.me/918050469086'), `WhatsApp link uses 918050469086 in ${relPath}`);
   }
 });
 
@@ -255,7 +255,7 @@ const homeContent = fs.readFileSync(path.join(ROOT_DIR, 'index.html'), 'utf8');
 assert(homeContent.includes('Car Towing &amp; Recovery in Just 10 Minutes!') || homeContent.includes('Car Towing & Recovery in Just 10 Minutes!'), 'Homepage contains headline: "Car Towing & Recovery in Just 10 Minutes!"');
 assert(homeContent.includes('10-Minute Recovery Target'), 'Homepage contains badge: "10-Minute Recovery Target"');
 assert(homeContent.includes('Need urgent car towing assistance? Contact Manjunatha Towing Service for quick car recovery assistance. Call us now to check availability near your location.'), 'Homepage contains exact supporting text');
-assert(homeContent.includes('Call Now &ndash; 98453 84726') || homeContent.includes('Call Now – 98453 84726'), 'Homepage primary CTA is Call Now – 98453 84726');
+assert(homeContent.includes('Call Now &ndash; 80504 69086') || homeContent.includes('Call Now – 80504 69086'), 'Homepage primary CTA is Call Now – 80504 69086');
 assert(homeContent.includes('Get Help on WhatsApp'), 'Homepage secondary CTA is Get Help on WhatsApp');
 assert(homeContent.includes('Fast Car Towing Assistance &ndash; Contact Us for Availability') || homeContent.includes('Fast Car Towing Assistance – Contact Us for Availability'), 'Homepage qualifies recovery target with availability notice');
 

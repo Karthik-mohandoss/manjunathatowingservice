@@ -11,8 +11,8 @@ Built specifically for high Google Ads conversion rates, organic local SEO, and 
 - **Business Name:** Manjunatha Towing Service
 - **Live Domain:** `https://manjunathatowingservice.in`
 - **GitHub Repository:** `https://github.com/Karthik-mohandoss/manjunathatowingservice`
-- **Primary Phone:** `98453 84726` (tel:9845384726)
-- **WhatsApp:** `+91 98453 84726` (https://wa.me/919845384726)
+- **Primary Phone:** `80504 69086` (tel:8050469086)
+- **WhatsApp:** `+91 80504 69086` (https://wa.me/918050469086)
 - **Base Business Address:** `#5, Kumbalgodu, Thagachaguppe, Near KBM Bakery, Bengaluru, Karnataka – 560074`
 - **Service Scope:** Passenger Cars Only (Hatchbacks, Sedans, SUVs).
 - **Strict Exclusions:** We do **NOT** tow or advertise towing for two-wheelers/motorcycles, commercial trucks, buses, or heavy industrial machinery.
@@ -80,13 +80,13 @@ The form logic in `js/main.js` provides both a live API integration pathway and 
    ```javascript
    var FORM_CONFIG = {
      apiEndpoint: 'https://your-api-domain.com/api/enquiry', // Your endpoint URL
-     businessPhone: '9845384726',
-     whatsappNumber: '919845384726'
+     businessPhone: '8050469086',
+     whatsappNumber: '918050469086'
    };
    ```
 
 2. **Honest Placeholder Mode (Default):**
-   If `apiEndpoint` is left blank, the form validates the customer's name, phone number, and pickup location, presents a clear message, and automatically formats the exact breakdown details into WhatsApp (`+91 98453 84726`), ensuring the customer is immediately connected to Manjunatha Towing Service without any stranded leads or false delivery claims.
+   If `apiEndpoint` is left blank, the form validates the customer's name, phone number, and pickup location, presents a clear message, and automatically formats the exact breakdown details into WhatsApp (`+91 80504 69086`), ensuring the customer is immediately connected to Manjunatha Towing Service without any stranded leads or false delivery claims.
 
 ---
 
@@ -118,7 +118,7 @@ The test suites verify:
 - 100% presence of all HTML, CSS, JS, and vector graphics.
 - Title, meta description, and H1 uniqueness across all 9 pages.
 - Natural presence of all 4 keyword themes across all 6 location pages.
-- Strict consistency of phone numbers (`tel:9845384726`) and WhatsApp URLs (`919845384726`).
+- Strict consistency of phone numbers (`tel:8050469086`) and WhatsApp URLs (`918050469086`).
 - Compliance with negative business rules (no bike/truck/bus towing ads, no fake 24/7 promises).
 - Valid JSON-LD Schema syntax and removal of unverified price tiers (`priceRange`).
 - Canonical URLs point to `https://manjunathatowingservice.in` and sitemap integrity.
