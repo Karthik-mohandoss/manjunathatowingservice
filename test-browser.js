@@ -90,7 +90,10 @@ async function runBrowserTests() {
 
     const viewports = [
       { name: 'Desktop (1280x800)', width: 1280, height: 800, isMobile: false },
-      { name: 'Mobile (375x667)', width: 375, height: 667, isMobile: true }
+      { name: 'Tablet (768x1024)', width: 768, height: 1024, isMobile: true },
+      { name: 'Mobile Modern Pixel (412x915)', width: 412, height: 915, isMobile: true },
+      { name: 'Mobile Standard (375x667)', width: 375, height: 667, isMobile: true },
+      { name: 'Mobile Small (320x568)', width: 320, height: 568, isMobile: true }
     ];
 
     for (const vp of viewports) {
@@ -153,20 +156,91 @@ async function runBrowserTests() {
           return { telLinks, waLinks };
         });
 
-        const invalidTel = linkAudit.telLinks.filter(href => href !== 'tel:8050469086');
+        const invalidTel = linkAudit.telLinks.filter(href => href !== 'tel:9845384726');
         if (invalidTel.length > 0) {
           failures.push(`${p.name} has invalid tel links: ${invalidTel.join(', ')}`);
           console.error(`  ✗ Invalid tel links found:`, invalidTel);
         } else {
-          console.log(`  ✓ All ${linkAudit.telLinks.length} tel links strictly use tel:8050469086`);
+          console.log(`  ✓ All ${linkAudit.telLinks.length} tel links strictly use tel:9845384726`);
         }
 
-        const invalidWa = linkAudit.waLinks.filter(href => !href.includes('918050469086'));
+        const invalidWa = linkAudit.waLinks.filter(href => !href.includes('919845384726'));
         if (invalidWa.length > 0) {
           failures.push(`${p.name} has invalid WhatsApp links: ${invalidWa.join(', ')}`);
           console.error(`  ✗ Invalid WhatsApp links found:`, invalidWa);
         } else if (linkAudit.waLinks.length > 0) {
-          console.log(`  ✓ All ${linkAudit.waLinks.length} WhatsApp links target +91 80504 69086`);
+          console.log(`  ✓ All ${linkAudit.waLinks.length} WhatsApp links target +91 98453 84726`);
+        }
+
+        // Check header layout & element overlap
+        const headerAudit = await page.evaluate((isMobile) => {
+          const header = document.querySelector('.site-header');
+          if (!header) return { headerPresent: false };
+
+          const logo = document.querySelector('.brand-logo-img');
+          const callBtn = document.querySelector('.header-call-btn');
+          const toggle = document.querySelector('.mobile-nav-toggle');
+
+          let callTextVisible = false;
+          let callIconVisible = false;
+          let hasOverlap = false;
+
+          if (callBtn) {
+            const span = callBtn.querySelector('span, .btn-text-wrap, .header-call-text');
+            if (span) {
+              const spanStyle = window.getComputedStyle(span);
+              callTextVisible = spanStyle.display !== 'none' && spanStyle.visibility !== 'hidden';
+            }
+            const svg = callBtn.querySelector('svg');
+            if (svg) {
+              const svgStyle = window.getComputedStyle(svg);
+              callIconVisible = svgStyle.display !== 'none' && svgStyle.visibility !== 'hidden';
+            }
+          }
+
+          if (logo && callBtn) {
+            const logoRect = logo.getBoundingClientRect();
+            const callRect = callBtn.getBoundingClientRect();
+            if (logoRect.right > callRect.left && logoRect.bottom > callRect.top && logoRect.top < callRect.bottom) {
+              hasOverlap = true;
+            }
+          }
+
+          if (callBtn && toggle && isMobile) {
+            const toggleStyle = window.getComputedStyle(toggle);
+            if (toggleStyle.display !== 'none') {
+              const callRect = callBtn.getBoundingClientRect();
+              const toggleRect = toggle.getBoundingClientRect();
+              if (callRect.right > toggleRect.left && callRect.bottom > toggleRect.top && callRect.top < toggleRect.bottom) {
+                hasOverlap = true;
+              }
+            }
+          }
+
+          return {
+            headerPresent: true,
+            callTextVisible,
+            callIconVisible,
+            hasOverlap
+          };
+        }, vp.isMobile);
+
+        if (headerAudit.headerPresent) {
+          if (headerAudit.hasOverlap) {
+            failures.push(`${p.name} has overlapping header elements at ${vp.name}`);
+            console.error(`  ✗ Header elements overlap detected!`);
+          } else {
+            console.log(`  ✓ Header layout OK: No overlapping elements`);
+          }
+
+          if (vp.isMobile) {
+            if (headerAudit.callTextVisible) {
+              failures.push(`${p.name} has visible phone text in mobile header at ${vp.name}`);
+              console.error(`  ✗ Visible phone number text found in mobile header`);
+            } else if (headerAudit.callIconVisible) {
+              console.log(`  ✓ Mobile header displays ONLY phone icon (phone text hidden)`);
+            }
+          }
         }
 
         // Check floating buttons and mobile bottom bar visibility
@@ -265,7 +339,7 @@ async function runBrowserTests() {
 
       console.log('\n3. Testing valid submission & WhatsApp handoff...');
       await formPage.$eval('#cust-name', el => el.value = 'Ramesh Kumar');
-      await formPage.$eval('#cust-phone', el => el.value = '8050469086');
+      await formPage.$eval('#cust-phone', el => el.value = '9845384726');
       await formPage.$eval('#cust-pickup', el => el.value = 'Near Kengeri Bus Terminal');
       await formPage.$eval('#cust-dest', el => el.value = 'Authorised Service Center, Nayandahalli');
       await formPage.$eval('#cust-car', el => el.value = 'Hyundai i20');
@@ -305,11 +379,11 @@ async function runBrowserTests() {
       console.log(`  ✓ Status alert displayed: ${handoffResult.alertVisible}`);
       console.log(`  ✓ Intercepted WhatsApp URL: ${handoffResult.interceptedUrl ? handoffResult.interceptedUrl.substring(0, 70) + '...' : 'NONE'}`);
 
-      if (!handoffResult.interceptedUrl || !handoffResult.interceptedUrl.includes('wa.me/918050469086')) {
-        failures.push('WhatsApp handoff did not open wa.me/918050469086 with correct format');
+      if (!handoffResult.interceptedUrl || !handoffResult.interceptedUrl.includes('wa.me/919845384726')) {
+        failures.push('WhatsApp handoff did not open wa.me/919845384726 with correct format');
         console.error('  ✗ WhatsApp handoff URL missing or incorrect');
       } else {
-        console.log('  ✓ WhatsApp handoff URL targets +91 80504 69086 with encoded car details');
+        console.log('  ✓ WhatsApp handoff URL targets +91 98453 84726 with encoded car details');
       }
 
       // Check URL parameters in interceptedUrl
