@@ -23,7 +23,7 @@
   window.TRACKING_CONFIG = {
     gtmId: '',                        // e.g., 'GTM-XXXXXXX'
     ga4MeasurementId: '',             // e.g., 'G-XXXXXXXXXX'
-    googleAdsId: 'AW-18518049268',    // Live Google Ads Account ID
+    googleAdsId: 'AW-18508168611',    // Live Google Ads Account ID
     googleAdsCallConversionLabel: 'iHYtCNGv1aQdEPSDjP5E', // Live Contact conversion label for call button clicks
     googleAdsLeadConversionLabel: 'iHYtCNGv1aQdEPSDjP5E', // Contact conversion label
     googleAdsWhatsAppConversionLabel: 'iHYtCNGv1aQdEPSDjP5E', // Contact conversion label for WhatsApp clicks

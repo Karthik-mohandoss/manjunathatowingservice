@@ -266,9 +266,9 @@ LOCATIONS.forEach(loc => {
 });
 
 // 11. Google Ads Tag (gtag.js) & Contact Conversion Snippet Verification
-console.log('\n11. Verifying Google Ads Tag (AW-18518049268) & Conversion Snippet...');
-const GOOGLE_ADS_ID = 'AW-18518049268';
-const CONVERSION_SNIPPET = 'AW-18518049268/iHYtCNGv1aQdEPSDjP5E';
+console.log('\n11. Verifying Google Ads Tag (AW-18508168611) & Conversion Snippet...');
+const GOOGLE_ADS_ID = 'AW-18508168611';
+const CONVERSION_SNIPPET = 'AW-18508168611/iHYtCNGv1aQdEPSDjP5E';
 
 const pagesWithGoogleTag = [
   'index.html',
