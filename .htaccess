@@ -46,7 +46,7 @@
   ExpiresDefault "access plus 1 month"
   ExpiresByType text/html "access plus 0 seconds"
   ExpiresByType text/css "access plus 1 month"
-  ExpiresByType application/javascript "access plus 1 month"
+  ExpiresByType application/javascript "access plus 0 seconds"
   ExpiresByType image/svg+xml "access plus 1 year"
   ExpiresByType image/x-icon "access plus 1 year"
 </IfModule>
@@ -55,9 +55,11 @@
 # Security & Cache Control Headers
 # ==============================================================================
 <IfModule mod_headers.c>
-  <FilesMatch "\.(html|htm)$">
+  <FilesMatch "\.(html|htm|js)$">
     Header set Cache-Control "no-cache, no-store, must-revalidate, max-age=0"
     Header set Pragma "no-cache"
+    Header set Expires 0
+  </FilesMatch>
     Header set Expires "0"
   </FilesMatch>
   Header set X-Content-Type-Options "nosniff"
