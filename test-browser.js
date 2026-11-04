@@ -439,7 +439,7 @@ async function runBrowserTests() {
       console.error('  ✗ No Google Ads conversion dispatched on call button click');
     } else {
       const conv = callConversionResult.conversions[0];
-      if (conv.send_to === 'AW-18508168611/iHYtCNGv1aQdEPSDjP5E' && conv.transport_type === 'beacon') {
+      if (conv.send_to === 'AW-18508168611/mfcHCKHV2bEdEKP7sPlE' && conv.transport_type === 'beacon') {
         console.log(`  ✓ Call button click triggered Google Ads conversion: ${conv.send_to} (transport: ${conv.transport_type})`);
       } else {
         failures.push(`Call conversion payload incorrect: ${JSON.stringify(conv)}`);

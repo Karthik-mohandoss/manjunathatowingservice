@@ -24,9 +24,9 @@
     gtmId: '',                        // e.g., 'GTM-XXXXXXX'
     ga4MeasurementId: '',             // e.g., 'G-XXXXXXXXXX'
     googleAdsId: 'AW-18508168611',    // Live Google Ads Account ID
-    googleAdsCallConversionLabel: 'iHYtCNGv1aQdEPSDjP5E', // Live Contact conversion label for call button clicks
-    googleAdsLeadConversionLabel: 'iHYtCNGv1aQdEPSDjP5E', // Contact conversion label
-    googleAdsWhatsAppConversionLabel: 'iHYtCNGv1aQdEPSDjP5E', // Contact conversion label for WhatsApp clicks
+    googleAdsCallConversionLabel: 'mfcHCKHV2bEdEKP7sPlE', // Live Contact conversion label for call button clicks
+    googleAdsLeadConversionLabel: 'mfcHCKHV2bEdEKP7sPlE', // Contact conversion label
+    googleAdsWhatsAppConversionLabel: 'mfcHCKHV2bEdEKP7sPlE', // Contact conversion label for WhatsApp clicks
     debug: false                      // Set to true to inspect tracking events in console
   };
 
@@ -264,6 +264,26 @@
         'send_to': window.TRACKING_CONFIG.googleAdsId + '/' + window.TRACKING_CONFIG.googleAdsLeadConversionLabel
       });
     }
+  }
+
+  // Standard Google Ads conversion reporter function
+  if (typeof window.gtag_report_conversion !== 'function') {
+    window.gtag_report_conversion = function (url) {
+      var callback = function () {
+        if (typeof(url) != 'undefined') {
+          window.location = url;
+        }
+      };
+      if (typeof window.gtag === 'function') {
+        window.gtag('event', 'conversion', {
+          'send_to': 'AW-18508168611/mfcHCKHV2bEdEKP7sPlE',
+          'event_callback': callback
+        });
+      } else {
+        callback();
+      }
+      return false;
+    };
   }
 
   // Expose analytics methods globally for form scripts
