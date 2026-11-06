@@ -19,14 +19,29 @@
 (function () {
   'use strict';
 
-  // Configurable tracking parameters (Configured from Google Ads account)
+  // Configurable tracking parameters (Configured from Google Ads accounts)
   window.TRACKING_CONFIG = {
     gtmId: '',                        // e.g., 'GTM-XXXXXXX'
     ga4MeasurementId: '',             // e.g., 'G-XXXXXXXXXX'
-    googleAdsId: 'AW-18508168611',    // Live Google Ads Account ID
+    googleAdsId: 'AW-18508168611',    // Live Google Ads Account ID (Account 2)
     googleAdsCallConversionLabel: 'mfcHCKHV2bEdEKP7sPlE', // Live Contact conversion label for call button clicks
     googleAdsLeadConversionLabel: 'mfcHCKHV2bEdEKP7sPlE', // Contact conversion label
     googleAdsWhatsAppConversionLabel: 'mfcHCKHV2bEdEKP7sPlE', // Contact conversion label for WhatsApp clicks
+
+    // Manjunatha Towing First AC (Account 1: AW-16772813147)
+    firstAc: {
+      googleAdsId: 'AW-16772813147',
+      callConversionLabels: [
+        'AW-16772813147/W5HqCL6UqrMdENui870-', // Click to call (2)
+        'AW-16772813147/ZS8WCMqUqrMdENui870-'  // Click to call (3)
+      ],
+      leadConversionLabel: 'AW-16772813147/JSezCMGUqrMdENui870-', // Contact (2)
+      phoneConversionLabels: [
+        'AW-16772813147/EPHxCLuUqrMdENui870-',
+        'AW-16772813147/gxjRCMeUqrMdENui870-'
+      ]
+    },
+
     debug: false                      // Set to true to inspect tracking events in console
   };
 
@@ -111,33 +126,82 @@
       window.gtag('event', eventName, fullPayload);
 
       // Handle direct Google Ads conversion mapping for Phone Calls
-      if (eventName === 'phone_call_click' && window.TRACKING_CONFIG.googleAdsId) {
-        var callLabel = window.TRACKING_CONFIG.googleAdsCallConversionLabel || window.TRACKING_CONFIG.googleAdsLeadConversionLabel;
-        if (callLabel) {
-          window.gtag('event', 'conversion', {
-            'send_to': window.TRACKING_CONFIG.googleAdsId + '/' + callLabel,
-            'transport_type': 'beacon'
-          });
+      if (eventName === 'phone_call_click') {
+        // Account 2
+        if (window.TRACKING_CONFIG.googleAdsId) {
+          var callLabel = window.TRACKING_CONFIG.googleAdsCallConversionLabel || window.TRACKING_CONFIG.googleAdsLeadConversionLabel;
+          if (callLabel) {
+            window.gtag('event', 'conversion', {
+              'send_to': window.TRACKING_CONFIG.googleAdsId + '/' + callLabel,
+              'transport_type': 'beacon'
+            });
+          }
+        }
+        // First AC
+        if (window.TRACKING_CONFIG.firstAc) {
+          var firstAc = window.TRACKING_CONFIG.firstAc;
+          if (firstAc.callConversionLabels && firstAc.callConversionLabels.length > 0) {
+            firstAc.callConversionLabels.forEach(function (target) {
+              window.gtag('event', 'conversion', {
+                'send_to': target,
+                'value': 1.0,
+                'currency': 'INR',
+                'transport_type': 'beacon'
+              });
+            });
+          }
+          if (firstAc.leadConversionLabel) {
+            window.gtag('event', 'conversion', {
+              'send_to': firstAc.leadConversionLabel,
+              'value': 1.0,
+              'currency': 'INR',
+              'transport_type': 'beacon'
+            });
+          }
         }
       }
 
       // Handle direct Google Ads conversion mapping for WhatsApp Clicks
-      if (eventName === 'whatsapp_click' && window.TRACKING_CONFIG.googleAdsId) {
-        var waLabel = window.TRACKING_CONFIG.googleAdsWhatsAppConversionLabel || window.TRACKING_CONFIG.googleAdsLeadConversionLabel;
-        if (waLabel) {
+      if (eventName === 'whatsapp_click') {
+        // Account 2
+        if (window.TRACKING_CONFIG.googleAdsId) {
+          var waLabel = window.TRACKING_CONFIG.googleAdsWhatsAppConversionLabel || window.TRACKING_CONFIG.googleAdsLeadConversionLabel;
+          if (waLabel) {
+            window.gtag('event', 'conversion', {
+              'send_to': window.TRACKING_CONFIG.googleAdsId + '/' + waLabel,
+              'transport_type': 'beacon'
+            });
+          }
+        }
+        // First AC
+        if (window.TRACKING_CONFIG.firstAc && window.TRACKING_CONFIG.firstAc.leadConversionLabel) {
           window.gtag('event', 'conversion', {
-            'send_to': window.TRACKING_CONFIG.googleAdsId + '/' + waLabel,
+            'send_to': window.TRACKING_CONFIG.firstAc.leadConversionLabel,
+            'value': 1.0,
+            'currency': 'INR',
             'transport_type': 'beacon'
           });
         }
       }
 
       // ONLY verified API delivery triggers lead conversion mapping
-      if (eventName === 'enquiry_form_success' && window.TRACKING_CONFIG.googleAdsId && window.TRACKING_CONFIG.googleAdsLeadConversionLabel) {
-        window.gtag('event', 'conversion', {
-          'send_to': window.TRACKING_CONFIG.googleAdsId + '/' + window.TRACKING_CONFIG.googleAdsLeadConversionLabel,
-          'transport_type': 'beacon'
-        });
+      if (eventName === 'enquiry_form_success') {
+        // Account 2
+        if (window.TRACKING_CONFIG.googleAdsId && window.TRACKING_CONFIG.googleAdsLeadConversionLabel) {
+          window.gtag('event', 'conversion', {
+            'send_to': window.TRACKING_CONFIG.googleAdsId + '/' + window.TRACKING_CONFIG.googleAdsLeadConversionLabel,
+            'transport_type': 'beacon'
+          });
+        }
+        // First AC
+        if (window.TRACKING_CONFIG.firstAc && window.TRACKING_CONFIG.firstAc.leadConversionLabel) {
+          window.gtag('event', 'conversion', {
+            'send_to': window.TRACKING_CONFIG.firstAc.leadConversionLabel,
+            'value': 1.0,
+            'currency': 'INR',
+            'transport_type': 'beacon'
+          });
+        }
       }
     }
 
@@ -275,8 +339,25 @@
         }
       };
       if (typeof window.gtag === 'function') {
+        // Account 2
         window.gtag('event', 'conversion', {
-          'send_to': 'AW-18508168611/mfcHCKHV2bEdEKP7sPlE',
+          'send_to': 'AW-18508168611/mfcHCKHV2bEdEKP7sPlE'
+        });
+        // First AC
+        window.gtag('event', 'conversion', {
+          'send_to': 'AW-16772813147/W5HqCL6UqrMdENui870-',
+          'value': 1.0,
+          'currency': 'INR'
+        });
+        window.gtag('event', 'conversion', {
+          'send_to': 'AW-16772813147/JSezCMGUqrMdENui870-',
+          'value': 1.0,
+          'currency': 'INR'
+        });
+        window.gtag('event', 'conversion', {
+          'send_to': 'AW-16772813147/ZS8WCMqUqrMdENui870-',
+          'value': 1.0,
+          'currency': 'INR',
           'event_callback': callback
         });
       } else {

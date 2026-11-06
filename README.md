@@ -42,20 +42,40 @@ All landing pages are structured with unique URLs, semantic HTML5, individual me
 
 Live Google Ads conversion tracking is installed across all HTML pages and configured in `js/analytics.js`:
 
-- **Google Ads Account ID:** `AW-18508168611`
-- **Google Tag:** Placed in `<head>` of all pages (`index.html`, 6 location pages, `privacy-policy.html`, `terms.html`, `thank-you.html`, `contact.html`).
-- **Contact Conversion Event Snippet:** Placed on `/thank-you.html` & `/contact.html` (`AW-18508168611/mfcHCKHV2bEdEKP7sPlE`).
+- **Google Ads Accounts Configured:**
+  1. **Account 2 (Live):** `AW-18508168611`
+     - Conversion Label: `AW-18508168611/mfcHCKHV2bEdEKP7sPlE`
+  2. **Manjunatha Towing First AC:** `AW-16772813147`
+     - Phone forwarding conversions: `AW-16772813147/EPHxCLuUqrMdENui870-` & `AW-16772813147/gxjRCMeUqrMdENui870-` for `80504 69086`
+     - Click to call (2): `AW-16772813147/W5HqCL6UqrMdENui870-`
+     - Contact (2) Page Load & Click: `AW-16772813147/JSezCMGUqrMdENui870-`
+     - Click to call (3): `AW-16772813147/ZS8WCMqUqrMdENui870-`
+- **Google Tags:** Both Google tags placed in `<head>` of all pages.
 - **Configured Tracking Object (`js/analytics.js`):**
 
 ```javascript
 window.TRACKING_CONFIG = {
   gtmId: '',                                 // Optional GTM container ID
   ga4MeasurementId: '',                      // Optional GA4 measurement ID
-  googleAdsId: 'AW-18508168611',             // Live Google Ads Account ID
-  googleAdsCallConversionLabel: 'mfcHCKHV2bEdEKP7sPlE', // Live Contact conversion label for call button clicks
-  googleAdsLeadConversionLabel: 'mfcHCKHV2bEdEKP7sPlE', // Contact Conversion Label
-  googleAdsWhatsAppConversionLabel: 'mfcHCKHV2bEdEKP7sPlE', // Contact conversion label for WhatsApp clicks
-  debug: false                               // Set to true to inspect tracking events in console
+  googleAdsId: 'AW-18508168611',             // Live Google Ads Account ID (Account 2)
+  googleAdsCallConversionLabel: 'mfcHCKHV2bEdEKP7sPlE',
+  googleAdsLeadConversionLabel: 'mfcHCKHV2bEdEKP7sPlE',
+  googleAdsWhatsAppConversionLabel: 'mfcHCKHV2bEdEKP7sPlE',
+
+  // Manjunatha Towing First AC
+  firstAc: {
+    googleAdsId: 'AW-16772813147',
+    callConversionLabels: [
+      'AW-16772813147/W5HqCL6UqrMdENui870-',
+      'AW-16772813147/ZS8WCMqUqrMdENui870-'
+    ],
+    leadConversionLabel: 'AW-16772813147/JSezCMGUqrMdENui870-',
+    phoneConversionLabels: [
+      'AW-16772813147/EPHxCLuUqrMdENui870-',
+      'AW-16772813147/gxjRCMeUqrMdENui870-'
+    ]
+  },
+  debug: false
 };
 ```
 

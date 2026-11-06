@@ -265,11 +265,18 @@ LOCATIONS.forEach(loc => {
   assert(locContent.includes('Fast Car Towing Assistance &ndash; Contact Us for Availability') || locContent.includes('Fast Car Towing Assistance – Contact Us for Availability'), `${loc.name} contains "Fast Car Towing Assistance – Contact Us for Availability" message`);
 });
 
-// 11. Google Ads Tag (AW-18508168611) & Contact Conversion Snippet Verification
-console.log('\n11. Verifying Google Ads Tag (AW-18508168611) & Conversion Snippet...');
+// 11. Google Ads Tag (AW-18508168611 & AW-16772813147 First AC) & Conversion Snippet Verification
+console.log('\n11. Verifying Google Ads Tags (AW-18508168611 & AW-16772813147) & Conversion Snippets...');
 const GOOGLE_ADS_ID = 'AW-18508168611';
+const FIRST_AC_ID = 'AW-16772813147';
 const CONVERSION_SNIPPET = 'AW-18508168611/mfcHCKHV2bEdEKP7sPlE';
 const CONVERSION_LABEL = 'mfcHCKHV2bEdEKP7sPlE';
+
+const FIRST_AC_CALL_2 = 'AW-16772813147/W5HqCL6UqrMdENui870-';
+const FIRST_AC_CONTACT_2 = 'AW-16772813147/JSezCMGUqrMdENui870-';
+const FIRST_AC_CALL_3 = 'AW-16772813147/ZS8WCMqUqrMdENui870-';
+const FIRST_AC_PHONE_1 = 'AW-16772813147/EPHxCLuUqrMdENui870-';
+const FIRST_AC_PHONE_2 = 'AW-16772813147/gxjRCMeUqrMdENui870-';
 
 const pagesWithGoogleTag = [
   'index.html',
@@ -282,23 +289,39 @@ const pagesWithGoogleTag = [
 
 pagesWithGoogleTag.forEach(relPath => {
   const content = fs.readFileSync(path.join(ROOT_DIR, relPath), 'utf8');
+  // Account 2
   assert(content.includes(GOOGLE_ADS_ID), `Google tag (${GOOGLE_ADS_ID}) present in ${relPath}`);
-  assert(content.includes('https://www.googletagmanager.com/gtag/js?id=' + GOOGLE_ADS_ID), `gtag.js script loader present in ${relPath}`);
+  assert(content.includes('https://www.googletagmanager.com/gtag/js?id=' + GOOGLE_ADS_ID), `gtag.js script loader for ${GOOGLE_ADS_ID} present in ${relPath}`);
   assert(content.includes('gtag_report_conversion'), `gtag_report_conversion present in ${relPath}`);
   assert(content.includes(CONVERSION_SNIPPET), `Conversion snippet ${CONVERSION_SNIPPET} present in ${relPath}`);
+
+  // First AC
+  assert(content.includes(FIRST_AC_ID), `First AC Google tag (${FIRST_AC_ID}) present in ${relPath}`);
+  assert(content.includes('https://www.googletagmanager.com/gtag/js?id=' + FIRST_AC_ID), `gtag.js script loader for ${FIRST_AC_ID} present in ${relPath}`);
+  assert(content.includes(FIRST_AC_PHONE_1), `First AC phone conversion 1 (${FIRST_AC_PHONE_1}) present in ${relPath}`);
+  assert(content.includes(FIRST_AC_PHONE_2), `First AC phone conversion 2 (${FIRST_AC_PHONE_2}) present in ${relPath}`);
+  assert(content.includes(FIRST_AC_CALL_2), `First AC Click to call (2) (${FIRST_AC_CALL_2}) present in ${relPath}`);
+  assert(content.includes(FIRST_AC_CONTACT_2), `First AC Contact (2) (${FIRST_AC_CONTACT_2}) present in ${relPath}`);
+  assert(content.includes(FIRST_AC_CALL_3), `First AC Click to call (3) (${FIRST_AC_CALL_3}) present in ${relPath}`);
 });
 
 const thankYouContent = fs.readFileSync(path.join(ROOT_DIR, 'thank-you.html'), 'utf8');
 assert(thankYouContent.includes(CONVERSION_SNIPPET), `thank-you.html contains Contact conversion snippet (${CONVERSION_SNIPPET})`);
+assert(thankYouContent.includes(FIRST_AC_CONTACT_2), `thank-you.html contains First AC Contact (2) snippet (${FIRST_AC_CONTACT_2})`);
 assert(thankYouContent.includes("gtag('event', 'conversion'"), 'thank-you.html invokes conversion event');
 
 const contactContent = fs.readFileSync(path.join(ROOT_DIR, 'contact.html'), 'utf8');
 assert(contactContent.includes(CONVERSION_SNIPPET), `contact.html contains Contact conversion snippet (${CONVERSION_SNIPPET})`);
+assert(contactContent.includes(FIRST_AC_CONTACT_2), `contact.html contains First AC Contact (2) snippet (${FIRST_AC_CONTACT_2})`);
 assert(contactContent.includes("gtag('event', 'conversion'"), 'contact.html invokes conversion event');
 
 assert(analyticsContent.includes(`googleAdsId: '${GOOGLE_ADS_ID}'`), `analytics.js has live googleAdsId: ${GOOGLE_ADS_ID}`);
 assert(analyticsContent.includes(`googleAdsLeadConversionLabel: '${CONVERSION_LABEL}'`), 'analytics.js has live Contact conversion label');
 assert(analyticsContent.includes(`googleAdsCallConversionLabel: '${CONVERSION_LABEL}'`), 'analytics.js has live Call conversion label for call button clicks');
+assert(analyticsContent.includes(FIRST_AC_ID), `analytics.js has firstAc ID: ${FIRST_AC_ID}`);
+assert(analyticsContent.includes(FIRST_AC_CALL_2), `analytics.js has firstAc Click to call (2): ${FIRST_AC_CALL_2}`);
+assert(analyticsContent.includes(FIRST_AC_CALL_3), `analytics.js has firstAc Click to call (3): ${FIRST_AC_CALL_3}`);
+assert(analyticsContent.includes(FIRST_AC_CONTACT_2), `analytics.js has firstAc Contact (2): ${FIRST_AC_CONTACT_2}`);
 assert(analyticsContent.includes("phone_call_click") && analyticsContent.includes("transport_type': 'beacon'"), 'analytics.js dispatches Google Ads conversion on phone_call_click with beacon transport');
 assert(analyticsContent.includes("whatsapp_click") && analyticsContent.includes("googleAdsWhatsAppConversionLabel"), 'analytics.js dispatches Google Ads conversion on whatsapp_click');
 

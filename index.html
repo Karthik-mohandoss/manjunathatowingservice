@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <!-- Google tag (gtag.js) -->
+  <!-- Google tag (gtag.js) - Account 2 (AW-18508168611) -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=AW-18508168611"></script>
   <script>
     window.dataLayer = window.dataLayer || [];
@@ -10,8 +10,20 @@
 
     gtag('config', 'AW-18508168611');
   </script>
-  <!-- Event snippet for Contact conversion page
-  In your html page, add the snippet and call gtag_report_conversion when someone clicks on the chosen link or button. -->
+
+  <!-- Google tag (gtag.js) - manjunatha towing first ac (AW-16772813147) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=AW-16772813147"></script>
+  <script>
+    gtag('config', 'AW-16772813147');
+    gtag('config', 'AW-16772813147/EPHxCLuUqrMdENui870-', {
+      'phone_conversion_number': '80504 69086'
+    });
+    gtag('config', 'AW-16772813147/gxjRCMeUqrMdENui870-', {
+      'phone_conversion_number': '80504 69086'
+    });
+  </script>
+
+  <!-- Event snippet for Contact & Click to call conversions -->
   <script>
   function gtag_report_conversion(url) {
     var callback = function () {
@@ -19,8 +31,27 @@
         window.location = url;
       }
     };
+    // Account 2
     gtag('event', 'conversion', {
-        'send_to': 'AW-18508168611/mfcHCKHV2bEdEKP7sPlE',
+        'send_to': 'AW-18508168611/mfcHCKHV2bEdEKP7sPlE'
+    });
+    // manjunatha towing first ac - Click to call (2)
+    gtag('event', 'conversion', {
+        'send_to': 'AW-16772813147/W5HqCL6UqrMdENui870-',
+        'value': 1.0,
+        'currency': 'INR'
+    });
+    // manjunatha towing first ac - Contact (2)
+    gtag('event', 'conversion', {
+        'send_to': 'AW-16772813147/JSezCMGUqrMdENui870-',
+        'value': 1.0,
+        'currency': 'INR'
+    });
+    // manjunatha towing first ac - Click to call (3)
+    gtag('event', 'conversion', {
+        'send_to': 'AW-16772813147/ZS8WCMqUqrMdENui870-',
+        'value': 1.0,
+        'currency': 'INR',
         'event_callback': callback
     });
     return false;
@@ -1001,7 +1032,7 @@
   </nav>
 
   <!-- Scripts -->
-  <script src="js/analytics.js?v=2.2"></script>
+  <script src="js/analytics.js?v=2.3"></script>
   <script src="js/main.js"></script>
 </body>
 </html>
