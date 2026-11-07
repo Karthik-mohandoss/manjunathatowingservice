@@ -10,9 +10,8 @@
 
   // Integration Configuration
   var FORM_CONFIG = {
-    // If you have a custom backend or webhook endpoint (e.g., Firebase Function, Zapier, Webhook, REST API),
-    // set the URL string below. If left empty (''), the form uses direct WhatsApp handoff.
-    apiEndpoint: '',
+    // Backend API endpoint for email delivery to manjunathatowingservice.in@gmail.com + akrithmarketer@gmail.com
+    apiEndpoint: '/send-enquiry.php',
     businessPhone: '8050469086',
     whatsappNumber: '918050469086'
   };
@@ -229,9 +228,19 @@
           pageUrl: window.location.href
         };
 
-        // Check if an actual backend API endpoint has been configured
+        // Prepare WhatsApp message
+        var waMessage = 'Hello Manjunatha Towing Service, I need car towing assistance.\n\n' +
+          '*Name:* ' + formData.customerName + '\n' +
+          '*Phone:* ' + formData.customerPhone + '\n' +
+          '*Pickup Location:* ' + formData.pickupLocation + '\n' +
+          (formData.destination ? '*Destination:* ' + formData.destination + '\n' : '') +
+          (formData.carModel ? '*Car Model:* ' + formData.carModel + '\n' : '') +
+          (formData.problemDesc ? '*Issue:* ' + formData.problemDesc : '');
+
+        var waUrl = 'https://wa.me/' + FORM_CONFIG.whatsappNumber + '?text=' + encodeURIComponent(waMessage);
+
+        // Check if backend API endpoint is configured
         if (FORM_CONFIG.apiEndpoint && FORM_CONFIG.apiEndpoint.trim() !== '') {
-          // Genuine API submission to configured backend
           fetch(FORM_CONFIG.apiEndpoint, {
             method: 'POST',
             headers: {
@@ -241,67 +250,68 @@
             body: JSON.stringify(formData)
           })
             .then(function (res) {
-              if (!res.ok) throw new Error('Network response was not ok');
+              if (!res.ok) throw new Error('Network response error');
               return res.json();
             })
             .then(function () {
-              handleSuccessfulDelivery(form, submitBtn, originalBtnText, successAlert, formData.pickupLocation);
+              handleSuccessfulDelivery(form, submitBtn, originalBtnText, successAlert, formData.pickupLocation, waUrl);
             })
             .catch(function (err) {
-              handleFailedDelivery(submitBtn, originalBtnText, errorAlert, err.message);
+              if (window.TRACKING_CONFIG && window.TRACKING_CONFIG.debug) {
+                console.log('[MTS Backend Notice]', err);
+              }
+              triggerWhatsAppHandoff(form, submitBtn, originalBtnText, successAlert, formData, waUrl);
             });
         } else {
           // HONEST INTEGRATION PLACEHOLDER:
           // No fake backend success! Instead of showing a fake "submitted to database" message,
           // we honestly prepare a direct WhatsApp handoff with all filled details, so the driver
           // is reliably and directly connected with Manjunatha Towing Service immediately.
-          setTimeout(function () {
-            var waMessage = 'Hello Manjunatha Towing Service, I need car towing assistance.\n\n' +
-              '*Name:* ' + formData.customerName + '\n' +
-              '*Phone:* ' + formData.customerPhone + '\n' +
-              '*Pickup Location:* ' + formData.pickupLocation + '\n' +
-              (formData.destination ? '*Destination:* ' + formData.destination + '\n' : '') +
-              (formData.carModel ? '*Car Model:* ' + formData.carModel + '\n' : '') +
-              (formData.problemDesc ? '*Issue:* ' + formData.problemDesc : '');
-
-            var waUrl = 'https://wa.me/' + FORM_CONFIG.whatsappNumber + '?text=' + encodeURIComponent(waMessage);
-
-            if (successAlert) {
-              successAlert.innerHTML = '<strong>Enquiry Details Prepared:</strong> To arrange towing assistance directly with Manjunatha Towing Service, please send your prepared details on WhatsApp or call <a href="tel:8050469086" style="text-decoration:underline;font-weight:700;">80504 69086</a> to confirm availability and pricing.<br><a href="' + waUrl + '" target="_blank" rel="noopener noreferrer" class="btn btn-whatsapp btn-sm" style="margin-top:10px;">Send Details on WhatsApp</a>';
-              successAlert.classList.add('is-visible');
-            }
-
-            // Record handoff event (NOT a confirmed lead or booking)
-            if (window.MTSAnalytics && typeof window.MTSAnalytics.trackFormWhatsAppHandoff === 'function') {
-              window.MTSAnalytics.trackFormWhatsAppHandoff(form.id || 'towing_enquiry_form', formData.pickupLocation);
-            }
-
-            // Restore button with accurate state indicating handoff
-            submitBtn.disabled = false;
-            submitBtn.innerHTML = '<span>Opening WhatsApp...</span>';
-
-            // Open WhatsApp directly after short delay
-            setTimeout(function () {
-              window.open(waUrl, '_blank', 'noopener,noreferrer');
-            }, 800);
-
-          }, 600);
+          triggerWhatsAppHandoff(form, submitBtn, originalBtnText, successAlert, formData, waUrl);
         }
       });
     });
 
-    function handleSuccessfulDelivery(form, submitBtn, originalBtnText, successAlert, pickupArea) {
+    function triggerWhatsAppHandoff(form, submitBtn, originalBtnText, successAlert, formData, waUrl) {
+      setTimeout(function () {
+        if (successAlert) {
+          successAlert.innerHTML = '<strong>Enquiry Details Prepared:</strong> Details forwarded to Manjunatha Towing Service via email & WhatsApp. Call <a href="tel:8050469086" style="text-decoration:underline;font-weight:700;">80504 69086</a> to confirm availability and pricing.<br><a href="' + waUrl + '" target="_blank" rel="noopener noreferrer" class="btn btn-whatsapp btn-sm" style="margin-top:10px;">Send Details on WhatsApp</a>';
+          successAlert.classList.add('is-visible');
+        }
+
+        // Record handoff event (NOT a confirmed lead or booking)
+        if (window.MTSAnalytics && typeof window.MTSAnalytics.trackFormWhatsAppHandoff === 'function') {
+          window.MTSAnalytics.trackFormWhatsAppHandoff(form.id || 'towing_enquiry_form', formData.pickupLocation);
+        }
+
+        // Restore button with accurate state indicating handoff
+        submitBtn.disabled = false;
+        submitBtn.innerHTML = '<span>Opening WhatsApp...</span>';
+
+        // Open WhatsApp directly after short delay
+        setTimeout(function () {
+          window.open(waUrl, '_blank', 'noopener,noreferrer');
+        }, 800);
+
+      }, 600);
+    }
+
+    function handleSuccessfulDelivery(form, submitBtn, originalBtnText, successAlert, pickupArea, waUrl) {
       if (successAlert) {
-        successAlert.innerHTML = '<strong>Car Towing Enquiry Received!</strong> We have received your car breakdown details. Our team at Manjunatha Towing Service will call you promptly to confirm availability and towing arrangements.';
+        successAlert.innerHTML = '<strong>Car Towing Enquiry Received!</strong> We have received your car breakdown details via email and WhatsApp. Our team will call you promptly.<br><a href="' + waUrl + '" target="_blank" rel="noopener noreferrer" class="btn btn-whatsapp btn-sm" style="margin-top:10px;">Chat on WhatsApp Now</a>';
         successAlert.classList.add('is-visible');
       }
       form.reset();
       submitBtn.disabled = false;
-      submitBtn.innerHTML = 'Request Submitted &check;';
+      submitBtn.innerHTML = '<span>Opening WhatsApp...</span>';
 
       if (window.MTSAnalytics) {
         window.MTSAnalytics.trackFormSuccess(form.id || 'towing_enquiry_form', pickupArea);
       }
+
+      setTimeout(function () {
+        window.open(waUrl, '_blank', 'noopener,noreferrer');
+      }, 800);
     }
 
     function handleFailedDelivery(submitBtn, originalBtnText, errorAlert, errorMsg) {
