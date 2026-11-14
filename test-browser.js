@@ -341,9 +341,6 @@ async function runBrowserTests() {
       await formPage.$eval('#cust-name', el => el.value = 'Ramesh Kumar');
       await formPage.$eval('#cust-phone', el => el.value = '8050469086');
       await formPage.$eval('#cust-pickup', el => el.value = 'Near Kengeri Bus Terminal');
-      await formPage.$eval('#cust-dest', el => el.value = 'Authorised Service Center, Nayandahalli');
-      await formPage.$eval('#cust-car', el => el.value = 'Hyundai i20');
-      await formPage.$eval('#cust-issue', el => el.value = 'Clutch failure, car immobilised on road shoulder');
 
       // Hook window.open to intercept WhatsApp redirect
       await formPage.evaluate(() => {
@@ -388,11 +385,59 @@ async function runBrowserTests() {
 
       // Check URL parameters in interceptedUrl
       const decodedWa = decodeURIComponent(handoffResult.interceptedUrl);
-      if (decodedWa.includes('Ramesh Kumar') && decodedWa.includes('Hyundai i20') && decodedWa.includes('Near Kengeri Bus Terminal')) {
-        console.log('  ✓ All car breakdown details cleanly encoded in WhatsApp message string');
+      if (decodedWa.includes('Ramesh Kumar') && decodedWa.includes('8050469086') && decodedWa.includes('Near Kengeri Bus Terminal')) {
+        console.log('  ✓ All 3 car breakdown details cleanly encoded in WhatsApp message string');
       } else {
         failures.push('Encoded WhatsApp message missing customer data');
         console.error('  ✗ Missing customer details in WhatsApp text:', decodedWa);
+      }
+
+      console.log('\n4. Testing 30-Second Nearby Popup Enquiry Modal...');
+      const popupDetails = await formPage.evaluate(() => {
+        const popup = document.getElementById('mts-nearby-popup');
+        const title = document.getElementById('mts-popup-title');
+        const nameField = document.getElementById('popup-name');
+        const phoneField = document.getElementById('popup-phone');
+        const locField = document.getElementById('popup-pickup');
+        const closeBtn = document.getElementById('mts-popup-close-btn');
+
+        // Trigger opening programmatically
+        if (typeof window.showNearbyTowingPopup === 'function') {
+          window.showNearbyTowingPopup();
+        }
+
+        const isVisible = popup ? popup.classList.contains('is-visible') : false;
+
+        return {
+          exists: !!popup,
+          titleText: title ? (title.textContent || title.innerText).trim() : '',
+          hasName: !!nameField,
+          hasPhone: !!phoneField,
+          hasLoc: !!locField,
+          hasClose: !!closeBtn,
+          isVisible: isVisible
+        };
+      });
+
+      if (popupDetails.exists && popupDetails.hasName && popupDetails.hasPhone && popupDetails.hasLoc) {
+        console.log(`  ✓ Nearby popup modal exists in DOM with Name, Phone, and Location fields`);
+      } else {
+        failures.push('Nearby popup modal missing required fields');
+        console.error('  ✗ Popup modal structure invalid:', popupDetails);
+      }
+
+      if (popupDetails.titleText.toLowerCase().includes('nearby')) {
+        console.log(`  ✓ Popup headline contains "Nearby": "${popupDetails.titleText}"`);
+      } else {
+        failures.push('Popup headline does not contain "Nearby"');
+        console.error('  ✗ Popup headline mismatch:', popupDetails.titleText);
+      }
+
+      if (popupDetails.isVisible) {
+        console.log(`  ✓ Popup modal displays correctly with .is-visible class when triggered`);
+      } else {
+        failures.push('Popup modal failed to open with .is-visible');
+        console.error('  ✗ Popup modal failed to toggle visible');
       }
     }
 

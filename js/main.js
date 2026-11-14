@@ -20,6 +20,7 @@
     initMobileNav();
     initStickyHeader();
     initFAQAccordion();
+    initNearbyPopup();
     initEnquiryForms();
     initSmoothScrollCTAs();
   });
@@ -118,7 +119,138 @@
   }
 
   /**
-   * 4. Quick Car Towing Enquiry Form Validation & Honest Submission
+   * 4. 30-Second Auto Popup Enquiry Modal ("We Are Nearby!")
+   */
+  function initNearbyPopup() {
+    // Do not show on conversion thank-you page
+    if (window.location.pathname.indexOf('thank-you') !== -1) {
+      return;
+    }
+
+    var existing = document.getElementById('mts-nearby-popup');
+    if (!existing) {
+      // Determine default location placeholder/value if on location-specific page
+      var path = window.location.pathname.toLowerCase();
+      var defaultPickup = '';
+      if (path.indexOf('kengeri') !== -1) defaultPickup = 'Kengeri, Bengaluru';
+      else if (path.indexOf('kumbalgodu') !== -1) defaultPickup = 'Kumbalgodu, Bengaluru';
+      else if (path.indexOf('ramanagara') !== -1) defaultPickup = 'Ramanagara Bypass, NH 275';
+      else if (path.indexOf('channapatna') !== -1) defaultPickup = 'Channapatna, NH 275';
+      else if (path.indexOf('maddur') !== -1) defaultPickup = 'Maddur, NH 275';
+      else if (path.indexOf('mandya') !== -1) defaultPickup = 'Mandya City / Bypass, NH 275';
+
+      var popupHtml =
+        '<div id="mts-nearby-popup" class="mts-popup-overlay" role="dialog" aria-modal="true" aria-labelledby="mts-popup-title" aria-hidden="true">' +
+          '<div class="mts-popup-dialog">' +
+            '<button type="button" class="mts-popup-close-btn" id="mts-popup-close-btn" aria-label="Close popup">&times;</button>' +
+            '<div class="mts-popup-header">' +
+              '<span class="mts-popup-badge"><span class="mts-popup-badge-dot"></span> Tow Truck Nearby &bull; Immediate Dispatch</span>' +
+              '<h3 id="mts-popup-title" class="mts-popup-title">We Are Nearby You! 🚗 Fast Car Towing</h3>' +
+              '<p class="mts-popup-subtitle">Car breakdown or stranded? Our nearest towing unit is operating in your area. Enter your name, phone number, and location — we will call you immediately!</p>' +
+            '</div>' +
+            '<form id="popup-towing-enquiry-form" class="towing-form" novalidate>' +
+              '<div class="form-alert form-alert-success" role="status" aria-live="polite"></div>' +
+              '<div class="form-alert form-alert-error" role="alert" aria-live="assertive"></div>' +
+              '<div class="form-group">' +
+                '<label for="popup-name" class="form-label">Customer Name <span class="req">*</span></label>' +
+                '<input type="text" id="popup-name" name="customer_name" class="form-control" placeholder="Your Full Name" required autocomplete="name">' +
+                '<div class="form-error-feedback">Please enter your name (minimum 2 characters).</div>' +
+              '</div>' +
+              '<div class="form-group">' +
+                '<label for="popup-phone" class="form-label">Mobile Number <span class="req">*</span></label>' +
+                '<input type="tel" id="popup-phone" name="customer_phone" class="form-control" placeholder="10-digit mobile number" required autocomplete="tel" pattern="[6-9][0-9]{9}" inputmode="numeric">' +
+                '<div class="form-error-feedback">Please enter a valid 10-digit mobile number starting with 6, 7, 8, or 9.</div>' +
+              '</div>' +
+              '<div class="form-group">' +
+                '<label for="popup-pickup" class="form-label">Breakdown Location / Landmark <span class="req">*</span></label>' +
+                '<input type="text" id="popup-pickup" name="pickup_location" class="form-control" placeholder="e.g. Near Kengeri / Mysore Highway / Ramanagara" value="' + defaultPickup + '" required>' +
+                '<div class="form-error-feedback">Please provide your car breakdown location or nearest landmark.</div>' +
+              '</div>' +
+              '<button type="submit" class="btn btn-primary btn-lg form-submit-btn" data-cta-placement="popup_modal_submit">' +
+                '<span>Request Immediate Towing</span>' +
+                '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>' +
+              '</button>' +
+            '</form>' +
+            '<div class="mts-popup-call-strip">' +
+              '<p>Need emergency car towing right now?</p>' +
+              '<a href="tel:8050469086" class="mts-popup-call-btn" data-cta-placement="popup_modal_call">' +
+                '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path></svg>' +
+                '<span>Call Directly: 80504 69086</span>' +
+              '</a>' +
+            '</div>' +
+          '</div>' +
+        '</div>';
+
+      var div = document.createElement('div');
+      div.innerHTML = popupHtml;
+      document.body.appendChild(div.firstElementChild);
+    }
+
+    var popupEl = document.getElementById('mts-nearby-popup');
+    var closeBtn = document.getElementById('mts-popup-close-btn');
+
+    function openPopup() {
+      if (!popupEl) return;
+      popupEl.classList.add('is-visible');
+      popupEl.setAttribute('aria-hidden', 'false');
+      var nameInput = popupEl.querySelector('#popup-name');
+      if (nameInput) {
+        setTimeout(function () { nameInput.focus(); }, 150);
+      }
+    }
+
+    function closePopup() {
+      if (!popupEl) return;
+      popupEl.classList.remove('is-visible');
+      popupEl.setAttribute('aria-hidden', 'true');
+      try {
+        sessionStorage.setItem('mts_nearby_popup_dismissed', '1');
+      } catch (err) {}
+    }
+
+    // Expose programmatic controls for testing and explicit triggers
+    window.showNearbyTowingPopup = openPopup;
+    window.hideNearbyTowingPopup = closePopup;
+
+    if (closeBtn) {
+      closeBtn.addEventListener('click', closePopup);
+    }
+
+    // Close on overlay backdrop click (outside dialog)
+    popupEl.addEventListener('click', function (e) {
+      if (e.target === popupEl) {
+        closePopup();
+      }
+    });
+
+    // Close on Escape key
+    document.addEventListener('keydown', function (e) {
+      if (e.key === 'Escape' && popupEl.classList.contains('is-visible')) {
+        closePopup();
+      }
+    });
+
+    // 30-Second Automatic Trigger
+    var dismissed = false;
+    try {
+      dismissed = sessionStorage.getItem('mts_nearby_popup_dismissed') === '1';
+    } catch (e) {}
+
+    if (!dismissed) {
+      setTimeout(function () {
+        var stillDismissed = false;
+        try {
+          stillDismissed = sessionStorage.getItem('mts_nearby_popup_dismissed') === '1';
+        } catch (e) {}
+        if (!stillDismissed) {
+          openPopup();
+        }
+      }, 30000); // 30 seconds
+    }
+  }
+
+  /**
+   * 5. Quick Car Towing Enquiry Form Validation & Honest Submission
    */
   function initEnquiryForms() {
     var forms = document.querySelectorAll('.towing-form');
@@ -211,6 +343,10 @@
         if (window.MTSAnalytics) {
           window.MTSAnalytics.trackFormSubmitAttempt(form.id || 'towing_enquiry_form');
         }
+
+        try {
+          sessionStorage.setItem('mts_nearby_popup_dismissed', '1');
+        } catch (err) {}
 
         // Prevent duplicate clicks & show loading state
         submitBtn.disabled = true;
