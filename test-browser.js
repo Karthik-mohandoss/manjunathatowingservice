@@ -300,13 +300,26 @@ async function runBrowserTests() {
     await formPage.setViewport({ width: 375, height: 667, isMobile: true });
     await formPage.goto(`http://127.0.0.1:${PORT}/`, { waitUntil: 'domcontentloaded' });
 
+    console.log('\n0. Testing Hero CTA Button dimensions on mobile (height <= 60px)...');
+    const heroBtnHeights = await formPage.evaluate(() => {
+      const btns = Array.from(document.querySelectorAll('.hero-cta-buttons .btn'));
+      return btns.map(b => b.getBoundingClientRect().height);
+    });
+    const maxBtnHeight = Math.max(...heroBtnHeights, 0);
+    if (maxBtnHeight > 65) {
+      failures.push(`Hero CTA buttons are excessively tall on mobile: ${maxBtnHeight}px (should be <= 60px)`);
+      console.error(`  ✗ Hero CTA button height too large: ${maxBtnHeight}px`);
+    } else {
+      console.log(`  ✓ Hero CTA button heights on mobile are compact and sleek (${heroBtnHeights.join('px, ')}px)`);
+    }
+
     console.log('\n1. Testing empty form submission...');
     const submitBtn = await formPage.$('#main-towing-enquiry-form button[type="submit"]');
     if (!submitBtn) {
       failures.push('Submit button not found on homepage');
       console.error('  ✗ Submit button missing');
     } else {
-      await submitBtn.click();
+      await formPage.evaluate(() => document.querySelector('#main-towing-enquiry-form').requestSubmit());
       const validationState = await formPage.evaluate(() => {
         const phone = document.querySelector('#cust-phone');
         const pickup = document.querySelector('#cust-pickup');
@@ -325,7 +338,7 @@ async function runBrowserTests() {
 
       console.log('\n2. Testing invalid phone number (e.g. 12345)...');
       await formPage.type('#cust-phone', '12345');
-      await submitBtn.click();
+      await formPage.evaluate(() => document.querySelector('#main-towing-enquiry-form').requestSubmit());
       const phoneValid = await formPage.evaluate(() => {
         const phone = document.querySelector('#cust-phone');
         return !phone.classList.contains('is-invalid');

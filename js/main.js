@@ -140,11 +140,13 @@
       else if (path.indexOf('mandya') !== -1) defaultPickup = 'Mandya City / Bypass, NH 275';
 
       var popupHtml =
-        '<div id="mts-nearby-popup" class="mts-popup-overlay" role="dialog" aria-modal="true" aria-labelledby="mts-popup-title" aria-hidden="true">' +
+        '<div id="mts-nearby-popup" class="mts-popup-overlay" role="dialog" aria-modal="true" aria-labelledby="mts-popup-title" aria-hidden="true" style="position:fixed;top:0;left:0;right:0;bottom:0;width:100%;height:100%;z-index:99999;">' +
           '<div class="mts-popup-dialog">' +
-            '<button type="button" class="mts-popup-close-btn" id="mts-popup-close-btn" aria-label="Close popup">&times;</button>' +
-            '<div class="mts-popup-header">' +
+            '<div class="mts-popup-top-bar">' +
               '<span class="mts-popup-badge"><span class="mts-popup-badge-dot"></span> Tow Truck Nearby &bull; Immediate Dispatch</span>' +
+              '<button type="button" class="mts-popup-close-btn" id="mts-popup-close-btn" aria-label="Close popup">&times;</button>' +
+            '</div>' +
+            '<div class="mts-popup-header">' +
               '<h3 id="mts-popup-title" class="mts-popup-title">We Are Nearby You! 🚗 Fast Car Towing</h3>' +
               '<p class="mts-popup-subtitle">Car breakdown or stranded? Our nearest towing unit is operating in your area. Enter your name, phone number, and location — we will call you immediately!</p>' +
             '</div>' +
@@ -191,6 +193,7 @@
 
     function openPopup() {
       if (!popupEl) return;
+      document.body.classList.add('mts-modal-open');
       popupEl.classList.add('is-visible');
       popupEl.setAttribute('aria-hidden', 'false');
       var nameInput = popupEl.querySelector('#popup-name');
@@ -201,6 +204,7 @@
 
     function closePopup() {
       if (!popupEl) return;
+      document.body.classList.remove('mts-modal-open');
       popupEl.classList.remove('is-visible');
       popupEl.setAttribute('aria-hidden', 'true');
       try {
