@@ -496,13 +496,13 @@ async function runBrowserTests() {
       failures.push('Clicking mobile call button failed to dispatch Google Ads conversion');
       console.error('  ✗ No Google Ads conversion dispatched on call button click');
     } else {
-      const hasAc2Conv = callConversionResult.conversions.some(c => c.send_to === 'AW-18508168611/mfcHCKHV2bEdEKP7sPlE' && c.transport_type === 'beacon');
       const hasFirstAcConv = callConversionResult.conversions.some(c => c.send_to === 'AW-16772813147/W5HqCL6UqrMdENui870-' && c.transport_type === 'beacon');
-      if (hasAc2Conv && hasFirstAcConv) {
-        console.log(`  ✓ Call button click triggered conversions for both Account 2 & First AC (${callConversionResult.conversions.length} conversions recorded)`);
+      const hasOldAcConv = callConversionResult.conversions.some(c => c.send_to === 'AW-18508168611/mfcHCKHV2bEdEKP7sPlE');
+      if (hasFirstAcConv && !hasOldAcConv) {
+        console.log(`  ✓ Call button click triggered First AC conversions (${callConversionResult.conversions.length} conversions recorded) and old tag correctly absent`);
       } else {
-        failures.push(`Call conversion payloads incomplete: ${JSON.stringify(callConversionResult.conversions)}`);
-        console.error('  ✗ Call conversion payloads incomplete:', callConversionResult.conversions);
+        failures.push(`Call conversion payloads unexpected: ${JSON.stringify(callConversionResult.conversions)}`);
+        console.error('  ✗ Call conversion payloads unexpected:', callConversionResult.conversions);
       }
     }
 

@@ -19,14 +19,14 @@
 (function () {
   'use strict';
 
-  // Configurable tracking parameters (Configured from Google Ads accounts)
+  // Configurable tracking parameters (Configured from Google Ads account)
   window.TRACKING_CONFIG = {
     gtmId: '',                        // e.g., 'GTM-XXXXXXX'
     ga4MeasurementId: '',             // e.g., 'G-XXXXXXXXXX'
-    googleAdsId: 'AW-18508168611',    // Live Google Ads Account ID (Account 2)
-    googleAdsCallConversionLabel: 'mfcHCKHV2bEdEKP7sPlE', // Live Contact conversion label for call button clicks
-    googleAdsLeadConversionLabel: 'mfcHCKHV2bEdEKP7sPlE', // Contact conversion label
-    googleAdsWhatsAppConversionLabel: 'mfcHCKHV2bEdEKP7sPlE', // Contact conversion label for WhatsApp clicks
+    googleAdsId: 'AW-16772813147',    // Primary Google Ads Account ID (manjunatha towing first ac)
+    googleAdsCallConversionLabel: '', 
+    googleAdsLeadConversionLabel: '', 
+    googleAdsWhatsAppConversionLabel: '', 
 
     // Manjunatha Towing First AC (Account 1: AW-16772813147)
     firstAc: {
@@ -127,17 +127,7 @@
 
       // Handle direct Google Ads conversion mapping for Phone Calls
       if (eventName === 'phone_call_click') {
-        // Account 2
-        if (window.TRACKING_CONFIG.googleAdsId) {
-          var callLabel = window.TRACKING_CONFIG.googleAdsCallConversionLabel || window.TRACKING_CONFIG.googleAdsLeadConversionLabel;
-          if (callLabel) {
-            window.gtag('event', 'conversion', {
-              'send_to': window.TRACKING_CONFIG.googleAdsId + '/' + callLabel,
-              'transport_type': 'beacon'
-            });
-          }
-        }
-        // First AC
+        // manjunatha towing first ac (AW-16772813147)
         if (window.TRACKING_CONFIG.firstAc) {
           var firstAc = window.TRACKING_CONFIG.firstAc;
           if (firstAc.callConversionLabels && firstAc.callConversionLabels.length > 0) {
@@ -163,17 +153,7 @@
 
       // Handle direct Google Ads conversion mapping for WhatsApp Clicks
       if (eventName === 'whatsapp_click') {
-        // Account 2
-        if (window.TRACKING_CONFIG.googleAdsId) {
-          var waLabel = window.TRACKING_CONFIG.googleAdsWhatsAppConversionLabel || window.TRACKING_CONFIG.googleAdsLeadConversionLabel;
-          if (waLabel) {
-            window.gtag('event', 'conversion', {
-              'send_to': window.TRACKING_CONFIG.googleAdsId + '/' + waLabel,
-              'transport_type': 'beacon'
-            });
-          }
-        }
-        // First AC
+        // manjunatha towing first ac (AW-16772813147)
         if (window.TRACKING_CONFIG.firstAc && window.TRACKING_CONFIG.firstAc.leadConversionLabel) {
           window.gtag('event', 'conversion', {
             'send_to': window.TRACKING_CONFIG.firstAc.leadConversionLabel,
@@ -186,14 +166,7 @@
 
       // ONLY verified API delivery triggers lead conversion mapping
       if (eventName === 'enquiry_form_success') {
-        // Account 2
-        if (window.TRACKING_CONFIG.googleAdsId && window.TRACKING_CONFIG.googleAdsLeadConversionLabel) {
-          window.gtag('event', 'conversion', {
-            'send_to': window.TRACKING_CONFIG.googleAdsId + '/' + window.TRACKING_CONFIG.googleAdsLeadConversionLabel,
-            'transport_type': 'beacon'
-          });
-        }
-        // First AC
+        // manjunatha towing first ac (AW-16772813147)
         if (window.TRACKING_CONFIG.firstAc && window.TRACKING_CONFIG.firstAc.leadConversionLabel) {
           window.gtag('event', 'conversion', {
             'send_to': window.TRACKING_CONFIG.firstAc.leadConversionLabel,
@@ -339,11 +312,7 @@
         }
       };
       if (typeof window.gtag === 'function') {
-        // Account 2
-        window.gtag('event', 'conversion', {
-          'send_to': 'AW-18508168611/mfcHCKHV2bEdEKP7sPlE'
-        });
-        // First AC
+        // manjunatha towing first ac (AW-16772813147)
         window.gtag('event', 'conversion', {
           'send_to': 'AW-16772813147/W5HqCL6UqrMdENui870-',
           'value': 1.0,

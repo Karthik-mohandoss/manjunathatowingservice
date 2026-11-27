@@ -42,25 +42,23 @@ All landing pages are structured with unique URLs, semantic HTML5, individual me
 
 Live Google Ads conversion tracking is installed across all HTML pages and configured in `js/analytics.js`:
 
-- **Google Ads Accounts Configured:**
-  1. **Account 2 (Live):** `AW-18508168611`
-     - Conversion Label: `AW-18508168611/mfcHCKHV2bEdEKP7sPlE`
-  2. **Manjunatha Towing First AC:** `AW-16772813147`
-     - Phone forwarding conversions: `AW-16772813147/EPHxCLuUqrMdENui870-` & `AW-16772813147/gxjRCMeUqrMdENui870-` for `80504 69086`
-     - Click to call (2): `AW-16772813147/W5HqCL6UqrMdENui870-`
-     - Contact (2) Page Load & Click: `AW-16772813147/JSezCMGUqrMdENui870-`
-     - Click to call (3): `AW-16772813147/ZS8WCMqUqrMdENui870-`
-- **Google Tags:** Both Google tags placed in `<head>` of all pages.
+- **Google Ads Account Configured:**
+  - **Manjunatha Towing First AC:** `AW-16772813147`
+    - Phone forwarding conversions: `AW-16772813147/EPHxCLuUqrMdENui870-` & `AW-16772813147/gxjRCMeUqrMdENui870-` for `80504 69086`
+    - Click to call (2): `AW-16772813147/W5HqCL6UqrMdENui870-`
+    - Contact (2) Page Load & Click: `AW-16772813147/JSezCMGUqrMdENui870-`
+    - Click to call (3): `AW-16772813147/ZS8WCMqUqrMdENui870-`
+- **Google Tag:** Placed in `<head>` of all pages.
 - **Configured Tracking Object (`js/analytics.js`):**
 
 ```javascript
 window.TRACKING_CONFIG = {
   gtmId: '',                                 // Optional GTM container ID
   ga4MeasurementId: '',                      // Optional GA4 measurement ID
-  googleAdsId: 'AW-18508168611',             // Live Google Ads Account ID (Account 2)
-  googleAdsCallConversionLabel: 'mfcHCKHV2bEdEKP7sPlE',
-  googleAdsLeadConversionLabel: 'mfcHCKHV2bEdEKP7sPlE',
-  googleAdsWhatsAppConversionLabel: 'mfcHCKHV2bEdEKP7sPlE',
+  googleAdsId: 'AW-16772813147',             // Primary Google Ads Account ID (manjunatha towing first ac)
+  googleAdsCallConversionLabel: '',
+  googleAdsLeadConversionLabel: '',
+  googleAdsWhatsAppConversionLabel: '',
 
   // Manjunatha Towing First AC
   firstAc: {
@@ -80,7 +78,7 @@ window.TRACKING_CONFIG = {
 ```
 
 ### Tracked Conversion Events:
-- `gtag('event', 'conversion', {'send_to': 'AW-18508168611/mfcHCKHV2bEdEKP7sPlE'})`: Fires on `/thank-you.html` & `/contact.html` for Contact conversions.
+- `gtag('event', 'conversion', {'send_to': 'AW-16772813147/JSezCMGUqrMdENui870-'})`: Fires on `/thank-you.html` & `/contact.html` for Contact conversions.
 - `phone_call_click`: Triggered when any `tel:` link is tapped. Captures `cta_placement` (header, hero, floating, sticky bar, footer) and `service_location`.
 - `whatsapp_click`: Triggered when any WhatsApp button is clicked. Captures `cta_placement` and pre-filled message context.
 - `enquiry_form_start`: Fires once per session upon initial user input into any form field.
