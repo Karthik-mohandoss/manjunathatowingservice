@@ -32,13 +32,16 @@
     firstAc: {
       googleAdsId: 'AW-16772813147',
       callConversionLabels: [
-        'AW-16772813147/W5HqCL6UqrMdENui870-', // Click to call (2)
-        'AW-16772813147/ZS8WCMqUqrMdENui870-'  // Click to call (3)
+        'AW-16772813147/lYYMCN6v1sAdENui870-', // Click to call (5)
+        'AW-16772813147/YkiXCOev1sAdENui870-'  // Click to call (6)
       ],
-      leadConversionLabel: 'AW-16772813147/JSezCMGUqrMdENui870-', // Contact (2)
+      leadConversionLabels: [
+        'AW-16772813147/sRkpCOnL1cAdENui870-', // Submit lead form
+        'AW-16772813147/QC27COWt1sAdENui870-'  // Contact (3)
+      ],
       phoneConversionLabels: [
-        'AW-16772813147/EPHxCLuUqrMdENui870-',
-        'AW-16772813147/gxjRCMeUqrMdENui870-'
+        'AW-16772813147/usunCOut1sAdENui870-',
+        'AW-16772813147/DcYSCOSv1sAdENui870-'
       ]
     },
 
@@ -140,12 +143,14 @@
               });
             });
           }
-          if (firstAc.leadConversionLabel) {
-            window.gtag('event', 'conversion', {
-              'send_to': firstAc.leadConversionLabel,
-              'value': 1.0,
-              'currency': 'INR',
-              'transport_type': 'beacon'
+          if (firstAc.leadConversionLabels && firstAc.leadConversionLabels.length > 0) {
+            firstAc.leadConversionLabels.forEach(function (target) {
+              window.gtag('event', 'conversion', {
+                'send_to': target,
+                'value': 1.0,
+                'currency': 'INR',
+                'transport_type': 'beacon'
+              });
             });
           }
         }
@@ -154,12 +159,14 @@
       // Handle direct Google Ads conversion mapping for WhatsApp Clicks
       if (eventName === 'whatsapp_click') {
         // manjunatha towing first ac (AW-16772813147)
-        if (window.TRACKING_CONFIG.firstAc && window.TRACKING_CONFIG.firstAc.leadConversionLabel) {
-          window.gtag('event', 'conversion', {
-            'send_to': window.TRACKING_CONFIG.firstAc.leadConversionLabel,
-            'value': 1.0,
-            'currency': 'INR',
-            'transport_type': 'beacon'
+        if (window.TRACKING_CONFIG.firstAc && window.TRACKING_CONFIG.firstAc.leadConversionLabels) {
+          window.TRACKING_CONFIG.firstAc.leadConversionLabels.forEach(function (target) {
+            window.gtag('event', 'conversion', {
+              'send_to': target,
+              'value': 1.0,
+              'currency': 'INR',
+              'transport_type': 'beacon'
+            });
           });
         }
       }
@@ -167,12 +174,14 @@
       // ONLY verified API delivery triggers lead conversion mapping
       if (eventName === 'enquiry_form_success') {
         // manjunatha towing first ac (AW-16772813147)
-        if (window.TRACKING_CONFIG.firstAc && window.TRACKING_CONFIG.firstAc.leadConversionLabel) {
-          window.gtag('event', 'conversion', {
-            'send_to': window.TRACKING_CONFIG.firstAc.leadConversionLabel,
-            'value': 1.0,
-            'currency': 'INR',
-            'transport_type': 'beacon'
+        if (window.TRACKING_CONFIG.firstAc && window.TRACKING_CONFIG.firstAc.leadConversionLabels) {
+          window.TRACKING_CONFIG.firstAc.leadConversionLabels.forEach(function (target) {
+            window.gtag('event', 'conversion', {
+              'send_to': target,
+              'value': 1.0,
+              'currency': 'INR',
+              'transport_type': 'beacon'
+            });
           });
         }
       }
@@ -312,19 +321,27 @@
         }
       };
       if (typeof window.gtag === 'function') {
-        // manjunatha towing first ac (AW-16772813147)
+        // Submit lead form
         window.gtag('event', 'conversion', {
-          'send_to': 'AW-16772813147/W5HqCL6UqrMdENui870-',
+          'send_to': 'AW-16772813147/sRkpCOnL1cAdENui870-',
           'value': 1.0,
           'currency': 'INR'
         });
+        // Contact (3)
         window.gtag('event', 'conversion', {
-          'send_to': 'AW-16772813147/JSezCMGUqrMdENui870-',
+          'send_to': 'AW-16772813147/QC27COWt1sAdENui870-',
           'value': 1.0,
           'currency': 'INR'
         });
+        // Click to call (5)
         window.gtag('event', 'conversion', {
-          'send_to': 'AW-16772813147/ZS8WCMqUqrMdENui870-',
+          'send_to': 'AW-16772813147/lYYMCN6v1sAdENui870-',
+          'value': 1.0,
+          'currency': 'INR'
+        });
+        // Click to call (6)
+        window.gtag('event', 'conversion', {
+          'send_to': 'AW-16772813147/YkiXCOev1sAdENui870-',
           'value': 1.0,
           'currency': 'INR',
           'event_callback': callback

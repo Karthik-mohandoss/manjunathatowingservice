@@ -44,10 +44,11 @@ Live Google Ads conversion tracking is installed across all HTML pages and confi
 
 - **Google Ads Account Configured:**
   - **Manjunatha Towing First AC:** `AW-16772813147`
-    - Phone forwarding conversions: `AW-16772813147/EPHxCLuUqrMdENui870-` & `AW-16772813147/gxjRCMeUqrMdENui870-` for `80504 69086`
-    - Click to call (2): `AW-16772813147/W5HqCL6UqrMdENui870-`
-    - Contact (2) Page Load & Click: `AW-16772813147/JSezCMGUqrMdENui870-`
-    - Click to call (3): `AW-16772813147/ZS8WCMqUqrMdENui870-`
+    - Phone forwarding conversions: `AW-16772813147/usunCOut1sAdENui870-` & `AW-16772813147/DcYSCOSv1sAdENui870-` for `80504 69086`
+    - Submit lead form: `AW-16772813147/sRkpCOnL1cAdENui870-`
+    - Contact (3): `AW-16772813147/QC27COWt1sAdENui870-`
+    - Click to call (5): `AW-16772813147/lYYMCN6v1sAdENui870-`
+    - Click to call (6): `AW-16772813147/YkiXCOev1sAdENui870-`
 - **Google Tag:** Placed in `<head>` of all pages.
 - **Configured Tracking Object (`js/analytics.js`):**
 
@@ -64,13 +65,16 @@ window.TRACKING_CONFIG = {
   firstAc: {
     googleAdsId: 'AW-16772813147',
     callConversionLabels: [
-      'AW-16772813147/W5HqCL6UqrMdENui870-',
-      'AW-16772813147/ZS8WCMqUqrMdENui870-'
+      'AW-16772813147/lYYMCN6v1sAdENui870-',
+      'AW-16772813147/YkiXCOev1sAdENui870-'
     ],
-    leadConversionLabel: 'AW-16772813147/JSezCMGUqrMdENui870-',
+    leadConversionLabels: [
+      'AW-16772813147/sRkpCOnL1cAdENui870-',
+      'AW-16772813147/QC27COWt1sAdENui870-'
+    ],
     phoneConversionLabels: [
-      'AW-16772813147/EPHxCLuUqrMdENui870-',
-      'AW-16772813147/gxjRCMeUqrMdENui870-'
+      'AW-16772813147/usunCOut1sAdENui870-',
+      'AW-16772813147/DcYSCOSv1sAdENui870-'
     ]
   },
   debug: false
@@ -78,7 +82,8 @@ window.TRACKING_CONFIG = {
 ```
 
 ### Tracked Conversion Events:
-- `gtag('event', 'conversion', {'send_to': 'AW-16772813147/JSezCMGUqrMdENui870-'})`: Fires on `/thank-you.html` & `/contact.html` for Contact conversions.
+- `gtag('event', 'conversion', {'send_to': 'AW-16772813147/sRkpCOnL1cAdENui870-'})`: Fires on Submit lead form.
+- `gtag('event', 'conversion', {'send_to': 'AW-16772813147/QC27COWt1sAdENui870-'})`: Fires on `/thank-you.html` & `/contact.html` for Contact (3).
 - `phone_call_click`: Triggered when any `tel:` link is tapped. Captures `cta_placement` (header, hero, floating, sticky bar, footer) and `service_location`.
 - `whatsapp_click`: Triggered when any WhatsApp button is clicked. Captures `cta_placement` and pre-filled message context.
 - `enquiry_form_start`: Fires once per session upon initial user input into any form field.

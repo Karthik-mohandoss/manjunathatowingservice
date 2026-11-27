@@ -496,10 +496,10 @@ async function runBrowserTests() {
       failures.push('Clicking mobile call button failed to dispatch Google Ads conversion');
       console.error('  ✗ No Google Ads conversion dispatched on call button click');
     } else {
-      const hasFirstAcConv = callConversionResult.conversions.some(c => c.send_to === 'AW-16772813147/W5HqCL6UqrMdENui870-' && c.transport_type === 'beacon');
+      const hasFirstAcConv = callConversionResult.conversions.some(c => c.send_to === 'AW-16772813147/lYYMCN6v1sAdENui870-' && c.transport_type === 'beacon');
       const hasOldAcConv = callConversionResult.conversions.some(c => c.send_to === 'AW-18508168611/mfcHCKHV2bEdEKP7sPlE');
       if (hasFirstAcConv && !hasOldAcConv) {
-        console.log(`  ✓ Call button click triggered First AC conversions (${callConversionResult.conversions.length} conversions recorded) and old tag correctly absent`);
+        console.log(`  ✓ Call button click triggered new First AC conversions (${callConversionResult.conversions.length} conversions recorded)`);
       } else {
         failures.push(`Call conversion payloads unexpected: ${JSON.stringify(callConversionResult.conversions)}`);
         console.error('  ✗ Call conversion payloads unexpected:', callConversionResult.conversions);
