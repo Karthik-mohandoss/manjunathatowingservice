@@ -3,7 +3,7 @@
  * ==============================================================================
  * Manjunatha Towing Service — Form Enquiry Email Dispatcher
  * Sends new car breakdown / towing enquiries to business emails:
- * 1. manjunathatowingservice.in@gmail.com
+ * 1. ashamahesh650@gmail.com
  * 2. akrithmarketer@gmail.com
  * ==============================================================================
  */
@@ -93,9 +93,9 @@ if (strlen($customerPhone) < 10) {
 date_default_timezone_set('Asia/Kolkata');
 $timestamp = date('d-M-Y h:i:s A') . ' IST';
 
-// Recipients: manjunathatowingservice.in@gmail.com and akrithmarketer@gmail.com
+// Recipients: ashamahesh650@gmail.com and akrithmarketer@gmail.com
 $recipients = [
-    'manjunathatowingservice.in@gmail.com',
+    'ashamahesh650@gmail.com',
     'akrithmarketer@gmail.com'
 ];
 $toHeader = implode(', ', $recipients);
@@ -207,7 +207,7 @@ $htmlBody = <<<HTML
     <tr>
       <td style="background-color: #F9FAFB; padding: 18px 28px; text-align: center; border-top: 1px solid #E5E7EB; color: #6B7280; font-size: 12px; line-height: 1.5;">
         This automated enquiry was submitted via the website form at <a href="https://manjunathatowingservice.in/" style="color: #4B5563; text-decoration: underline;">manjunathatowingservice.in</a>.<br>
-        Recipients: manjunathatowingservice.in@gmail.com &amp; akrithmarketer@gmail.com
+        Recipients: ashamahesh650@gmail.com &amp; akrithmarketer@gmail.com
       </td>
     </tr>
   </table>

@@ -327,6 +327,13 @@ assert(analyticsContent.includes(CONTACT_3), `analytics.js has Contact (3): ${CO
 assert(analyticsContent.includes("phone_call_click") && analyticsContent.includes("transport_type': 'beacon'"), 'analytics.js dispatches Google Ads conversion on phone_call_click with beacon transport');
 assert(analyticsContent.includes("whatsapp_click") && analyticsContent.includes("leadConversionLabels"), 'analytics.js dispatches Google Ads conversion on whatsapp_click');
 
+// 12. Lead Enquiry Email Dispatcher Verification
+console.log('\n12. Verifying Lead Enquiry Email Dispatcher (send-enquiry.php)...');
+const phpContent = fs.readFileSync(path.join(ROOT_DIR, 'send-enquiry.php'), 'utf8');
+assert(phpContent.includes('ashamahesh650@gmail.com'), 'send-enquiry.php contains lead recipient ashamahesh650@gmail.com');
+assert(phpContent.includes('akrithmarketer@gmail.com'), 'send-enquiry.php contains lead recipient akrithmarketer@gmail.com');
+assert(!phpContent.includes('manjunathatowingservice.in@gmail.com'), 'send-enquiry.php does NOT contain old email manjunathatowingservice.in@gmail.com');
+
 // Summary
 console.log('\n======================================================');
 console.log(`TOTAL CHECKS: ${totalChecks} | PASSED: ${passedChecks} | FAILED: ${errors.length}`);

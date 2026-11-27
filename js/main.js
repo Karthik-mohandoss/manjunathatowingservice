@@ -10,7 +10,7 @@
 
   // Integration Configuration
   var FORM_CONFIG = {
-    // Backend API endpoint for email delivery to manjunathatowingservice.in@gmail.com + akrithmarketer@gmail.com
+    // Backend API endpoint for email delivery to ashamahesh650@gmail.com + akrithmarketer@gmail.com
     apiEndpoint: '/send-enquiry.php',
     businessPhone: '8050469086',
     whatsappNumber: '918050469086'
